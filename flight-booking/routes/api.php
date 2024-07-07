@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\AirportController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\BookingController;
 
 Route::apiResource('users', UserController::class);
@@ -21,3 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/flights', [FlightController::class, 'search']);
 Route::get('/flights/airline/{airline}', [FlightController::class, 'flightsByAirline']);
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'userProfile']);
