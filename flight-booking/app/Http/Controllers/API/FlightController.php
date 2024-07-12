@@ -91,6 +91,7 @@ class FlightController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
-        $this->middleware('is_admin')->only(['store', 'update', 'destroy']);
+        // $this->middleware('is_admin')->only(['store', 'update', 'destroy']);
+        $this->middleware('auth:sanctum')->only(['store', 'update', 'destroy']);
     }
 }
