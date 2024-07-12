@@ -85,9 +85,10 @@ class FlightController extends Controller
     {
         $flight = Flight::findOrFail($flight_id);
         $flight->delete();
-
-        return response()->json(null, 204);
+    
+        return response()->json(['message' => 'Flight deleted successfully'], 200);
     }
+    
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);

@@ -8,7 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\FlightController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\BookingController;
+use App\Http\Controllers\API\BookingController;
+
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('admins', AdminController::class);
@@ -26,6 +27,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/flights', [FlightController::class, 'store']);
     Route::put('/flights/{flight_id}', [FlightController::class, 'update']);
     Route::delete('/flights/{flight_id}', [FlightController::class, 'destroy']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/bookings', [BookingController::class, 'index']);
+    Route::get('/bookings/{booking_id}', [BookingController::class, 'show']);
+    Route::post('/bookings', [BookingController::class, 'store']);
+    Route::put('/bookings/{booking_id}', [BookingController::class, 'update']);
+    Route::delete('/bookings/{booking_id}', [BookingController::class, 'destroy']);
 });
 
 Route::post('/register', [AuthController::class, 'register']);
