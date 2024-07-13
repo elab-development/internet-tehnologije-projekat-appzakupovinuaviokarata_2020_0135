@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\FlightController;
 use App\Http\Controllers\AirportController;
@@ -16,10 +16,6 @@ Route::apiResource('admins', AdminController::class);
 Route::apiResource('flights', FlightController::class);
 Route::apiResource('airports', AirportController::class);
 Route::apiResource('bookings', BookingController::class);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/flights', [FlightController::class, 'index']);
@@ -37,7 +33,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/bookings/{booking_id}', [BookingController::class, 'destroy']);
 });
 
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{user_id}', [UserController::class, 'show']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::put('/users/{user_id}', [UserController::class, 'update']);
+    Route::delete('/users/{user_id}', [UserController::class, 'destroy']);
+});
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'userProfile']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/user/profile', [AuthController::class, 'userProfile'])->middleware('auth:sanctum');
