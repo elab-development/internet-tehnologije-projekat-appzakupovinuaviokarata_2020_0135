@@ -1,0 +1,24 @@
+/* login.component.scss */
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .example-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  
+    .example-full-width {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  
