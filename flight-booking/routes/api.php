@@ -45,3 +45,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/user/profile', [AuthController::class, 'userProfile'])->middleware('auth:sanctum');
+
+Route::options('{any}', function () {
+    return response()->json([], 200);
+})->where('any', '.*');
+
