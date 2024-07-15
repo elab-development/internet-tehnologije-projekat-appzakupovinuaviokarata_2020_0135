@@ -17,9 +17,16 @@ import { TokenInterceptor } from './token.interceptor';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    DashboardComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,6 +36,7 @@ import { LoginComponent } from './pages/login/login.component';
     ReactiveFormsModule,
   ],
   providers: [
+    AuthGuard,
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     {
