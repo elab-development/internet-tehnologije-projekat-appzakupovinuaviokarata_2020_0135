@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './material/material.module';
-import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   HTTP_INTERCEPTORS,
@@ -15,8 +14,9 @@ import {
 
 import { Token } from '@angular/compiler';
 import { TokenInterceptor } from './token.interceptor';
-import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
