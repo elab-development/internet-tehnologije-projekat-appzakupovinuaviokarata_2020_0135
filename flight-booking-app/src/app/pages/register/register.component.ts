@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,11 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   get usernameFormControl() {
     return this.registerForm.get('username') as FormControl;
@@ -29,6 +34,7 @@ export class RegisterComponent implements OnInit {
   get passwordConfirmationFormControl() {
     return this.registerForm.get('password_confirmation') as FormControl;
   }
+
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -42,12 +48,12 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const userData = {
         ...this.registerForm.value,
-        role: 'user', // Postavi role na 'user'
+        role: 'user',
       };
-      this.authService.register(userData).subscribe((res) => console.log(res));
-
-      // this.authService.register(this.registerForm.value).subscribe((res)=>console.log(res));
-      // //this.authService.login(this.loginForm.value).subscribe(res=>localStorage.setItem('token',res.access_token));
+      this.authService.register(userData).subscribe((res) => {
+        console.log(res);
+        this.router.navigate(['/login']);
+      });
     }
   }
 }
