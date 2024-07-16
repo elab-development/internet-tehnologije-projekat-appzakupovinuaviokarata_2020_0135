@@ -17,8 +17,10 @@ Route::apiResource('flights', FlightController::class);
 Route::apiResource('airports', AirportController::class);
 Route::apiResource('bookings', BookingController::class);
 
+
 Route::get('/flights', [FlightController::class, 'index']);
 Route::get('/flights/{flight_id}', [FlightController::class, 'show']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/flights', [FlightController::class, 'store']);
     Route::put('/flights/{flight_id}', [FlightController::class, 'update']);
@@ -60,4 +62,3 @@ Route::get('/user/profile', [AuthController::class, 'userProfile'])->middleware(
 Route::options('{any}', function () {
     return response()->json([], 200);
 })->where('any', '.*');
-
