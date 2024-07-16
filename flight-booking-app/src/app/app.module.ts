@@ -22,6 +22,8 @@ import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { SearchComponent } from './pages/search/search.component';
 import { BookFlightComponent } from './pages/book-flight/book-flight.component';
 import { WebsiteLandingComponent } from './pages/website-landing/website-landing.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FlightsComponent } from './pages/flights/flights.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { WebsiteLandingComponent } from './pages/website-landing/website-landing
     MyBookingsComponent,
     SearchComponent,
     WebsiteLandingComponent,
+    SidebarComponent,
+    FlightsComponent,
   ],
 
   imports: [

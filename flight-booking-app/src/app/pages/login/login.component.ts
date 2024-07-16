@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe((res) => {
-        console.log(res);
         localStorage.setItem('auth_token', res.access_token);
         localStorage.setItem('user', JSON.stringify(res.user));
         this.redirectUser(res.user.role);
@@ -50,7 +49,7 @@ export class LoginComponent implements OnInit {
     if (role === 'admin') {
       this.router.navigate(['/dashboard']);
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/search']);
     }
   }
 }
