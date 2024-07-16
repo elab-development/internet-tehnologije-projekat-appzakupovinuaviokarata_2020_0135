@@ -37,7 +37,7 @@ export class SearchComponent {
     });
   }
 
-  bookFlight() {
-    this.router.navigate(['/book-flight']);
-  }
+  bookFlight(flightId: number) {
+    this.router.navigate(['/book-flight', flightId]);
+}
 }

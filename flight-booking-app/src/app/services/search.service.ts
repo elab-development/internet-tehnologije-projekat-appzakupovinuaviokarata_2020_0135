@@ -40,6 +40,15 @@ export class SearchService {
     );
   }
 
+  getAirportName(id: number): Observable<string> {
+    return this.getAllAirport().pipe(
+      map(airports => {
+        const airport = airports.find(a => a.airport_id === id);
+        return airport ? airport.name : 'Unknown Airport';
+      })
+    );
+  }
+
   private getToken(): string {
     // Replace this with your session management logic to retrieve the token
     return 'YOUR_TOKEN_HERE'; 
