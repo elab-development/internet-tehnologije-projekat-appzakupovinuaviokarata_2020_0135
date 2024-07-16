@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'book-flight', component: BookFlightComponent },
+  { path: 'book-flight/:id', component: BookFlightComponent },
   { path: '', redirectTo: 'book-flight', pathMatch: 'full' },
 
 ];
