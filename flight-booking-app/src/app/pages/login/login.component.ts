@@ -6,15 +6,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
   get emailFormControl() {
     return this.loginForm.get('email') as FormControl;
   }
@@ -28,12 +35,23 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
+
   login() {
     if (this.loginForm.valid) {
-      // this.authService
-      //   .login(this.loginForm.value)
-      //   .subscribe((res) => console.log(res));
-      this.authService.login(this.loginForm.value).subscribe(res=>localStorage.setItem('token',res.access_token));
+      this.authService.login(this.loginForm.value).subscribe((res) => {
+        console.log(res);
+        localStorage.setItem('auth_token', res.access_token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.redirectUser(res.user.role);
+      });
+    }
+  }
+  redirectUser(role: string) {
+    if (role === 'admin') {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/login']);
+
     }
   }
 }

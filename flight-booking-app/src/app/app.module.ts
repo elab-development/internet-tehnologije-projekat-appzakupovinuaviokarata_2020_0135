@@ -11,19 +11,29 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-
 import { Token } from '@angular/compiler';
 import { TokenInterceptor } from './token.interceptor';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
 import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { SearchComponent } from './pages/search/search.component';
 import { BookFlightComponent } from './pages/book-flight/book-flight.component';
 import { WebsiteLandingComponent } from './pages/website-landing/website-landing.component';
-
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, BookFlightComponent, MyBookingsComponent, SearchComponent, WebsiteLandingComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    DashboardComponent,
+    BookFlightComponent,
+    MyBookingsComponent,
+    SearchComponent,
+    WebsiteLandingComponent,
+  ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,6 +43,7 @@ import { WebsiteLandingComponent } from './pages/website-landing/website-landing
     ReactiveFormsModule,
   ],
   providers: [
+    AuthGuard,
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     {
