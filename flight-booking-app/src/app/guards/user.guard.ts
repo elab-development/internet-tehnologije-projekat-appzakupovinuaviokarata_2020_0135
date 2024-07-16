@@ -7,7 +7,7 @@ import { AlertDialogComponent } from '../pages/alert/alert.component';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class UserGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
       const user = JSON.parse(userString);
       role = user.role;
     }
-    if (token && role === 'admin') {
+    if (token && (role === 'user' || role === 'admin')) {
       return true;
     } else {
       this.logout();

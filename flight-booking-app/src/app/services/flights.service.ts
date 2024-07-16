@@ -14,8 +14,7 @@ export class FlightsService {
 
   // Metoda za dohvatanje svih letova
   getAllFlights(): Observable<any[]> {
-    const headers = this.getHeaders();
-    return this.http.get<any[]>(this.baseUrl, { headers });
+    return this.http.get<any[]>(this.baseUrl);
   }
 
   // Metoda za dohvatanje jednog leta po ID-u

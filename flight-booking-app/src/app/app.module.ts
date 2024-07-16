@@ -8,6 +8,8 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
@@ -17,13 +19,15 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuard } from './guards/auth.guard';
 import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { SearchComponent } from './pages/search/search.component';
 import { BookFlightComponent } from './pages/book-flight/book-flight.component';
 import { WebsiteLandingComponent } from './pages/website-landing/website-landing.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FlightsComponent } from './pages/flights/flights.component';
+import { AlertDialogComponent } from './pages/alert/alert.component';
+import { AuthGuard } from './guards/auth.guard';
+import { UserGuard } from './guards/user.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +40,7 @@ import { FlightsComponent } from './pages/flights/flights.component';
     WebsiteLandingComponent,
     SidebarComponent,
     FlightsComponent,
+    AlertDialogComponent,
   ],
 
   imports: [
@@ -48,6 +53,7 @@ import { FlightsComponent } from './pages/flights/flights.component';
   ],
   providers: [
     AuthGuard,
+    UserGuard,
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     {

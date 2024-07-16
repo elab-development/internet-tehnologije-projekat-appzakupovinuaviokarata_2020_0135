@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AlertDialogComponent } from '../alert/alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   get emailFormControl() {
@@ -50,7 +53,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate(['/search']);
-
     }
   }
 }
