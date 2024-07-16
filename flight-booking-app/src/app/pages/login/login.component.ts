@@ -30,10 +30,10 @@ export class LoginComponent implements OnInit {
   }
   login() {
     if (this.loginForm.valid) {
-      this.authService
-        .login(this.loginForm.value)
-        .subscribe((res) => console.log(res));
-      //this.authService.login(this.loginForm.value).subscribe(res=>localStorage.setItem('token',res.access_token));
+      // this.authService
+      //   .login(this.loginForm.value)
+      //   .subscribe((res) => console.log(res));
+      this.authService.login(this.loginForm.value).subscribe(res=>localStorage.setItem('token',res.access_token));
     }
   }
 }
