@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class FlightController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+        $this->middleware('is_admin')->only(['store', 'update', 'destroy']);
+    }
     public function index()
     {
         $flights = Flight::all();
@@ -87,11 +92,5 @@ class FlightController extends Controller
         $flight->delete();
 
         return response()->json(['message' => 'Flight deleted successfully'], 200);
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-        $this->middleware('is_admin')->only(['store', 'update', 'destroy']);
     }
 }
