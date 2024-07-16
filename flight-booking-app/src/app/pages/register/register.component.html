@@ -1,4 +1,6 @@
 <form [formGroup]="registerForm" (ngSubmit)="register()">
+  <h2 class="title has-text-centered">Register</h2>
+
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
       <input matInput formControlName="username" required />
@@ -25,5 +27,9 @@
     </mat-form-field>
   
     <button mat-raised-button color="primary" type="submit">Register</button>
+    <p class="has-text-centered mt-5">
+      Already have an account? <a routerLink="/login">Login</a>
+    </p>
+    
   </form>
   

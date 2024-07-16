@@ -1,4 +1,6 @@
+
 <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+  <h2 class="title has-text-centered">Login</h2>
   <mat-form-field class="example-full-width">
     <mat-label>Email</mat-label>
     <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
@@ -18,5 +20,9 @@
         <mat-error>Password is <strong>required</strong></mat-error>
       }
     </mat-form-field>
-    <button mat-raised-button>Submit</button>
+    <button mat-raised-button>Login</button>
+    <p class="has-text-centered mt-5">
+      Don't have an account? <a routerLink="/register">Register</a>
+    </p>
+    
 </form>
