@@ -28,6 +28,8 @@ import { FlightsComponent } from './pages/flights/flights.component';
 import { AlertDialogComponent } from './pages/alert/alert.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +52,7 @@ import { UserGuard } from './guards/user.guard';
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   providers: [
     AuthGuard,

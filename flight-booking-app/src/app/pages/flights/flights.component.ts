@@ -1,8 +1,8 @@
-// flights.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FlightsService } from '../../services/flights.service';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
@@ -20,8 +20,13 @@ export class FlightsComponent implements OnInit {
     'capacity',
     'price',
   ];
+  filteredFlights: MatTableDataSource<any>;
+  searchTerm: string = '';
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(
+    private flightsService: FlightsService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.fetchFlights();
@@ -30,6 +35,23 @@ export class FlightsComponent implements OnInit {
   fetchFlights() {
     this.flightsService.getAllFlights().subscribe((data) => {
       this.flights = data;
+      this.filteredFlights = new MatTableDataSource(this.flights);
     });
+  }
+
+  applyFilter(): void {
+    this.filteredFlights.filter = this.searchTerm.trim().toLowerCase();
+  }
+
+  onUpdate(flight: any): void {
+    console.log('update');
+  }
+
+  onDelete(flight: any): void {
+    if (confirm('Are you sure you want to delete this flight?')) {
+      this.flightsService
+        .deleteFlight(flight.flight_id)
+        .subscribe(() => this.fetchFlights());
+    }
   }
 }

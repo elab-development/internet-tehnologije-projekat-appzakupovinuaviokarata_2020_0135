@@ -1,28 +1,31 @@
-
 <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
   <h2 class="title has-text-centered">Login</h2>
   <mat-form-field class="example-full-width">
     <mat-label>Email</mat-label>
-    <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
-    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
-      <mat-error>Please enter a valid email address</mat-error>
-    }
-    @if (emailFormControl.hasError('required')) {
-      <mat-error>Email is <strong>required</strong></mat-error>
+    <input
+      type="email"
+      matInput
+      formControlName="email"
+      placeholder="Ex. pat@example.com"
+    />
+    @if (emailFormControl.hasError('email') &&
+    !emailFormControl.hasError('required')) {
+    <mat-error>Please enter a valid email address</mat-error>
+    } @if (emailFormControl.hasError('required')) {
+    <mat-error>Email is <strong>required</strong></mat-error>
     }
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-      <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password">
-      
-      @if (emailFormControl.hasError('required')) {
-        <mat-error>Password is <strong>required</strong></mat-error>
-      }
-    </mat-form-field>
-    <button mat-raised-button>Login</button>
-    <p class="has-text-centered mt-5">
-      Don't have an account? <a routerLink="/register">Register</a>
-    </p>
-    
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password" />
+
+    @if (emailFormControl.hasError('required')) {
+    <mat-error>Password is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+  <button mat-raised-button>Login</button>
+  <p class="has-text-centered mt-5">
+    Don't have an account? <a routerLink="/register">Register</a>
+  </p>
 </form>

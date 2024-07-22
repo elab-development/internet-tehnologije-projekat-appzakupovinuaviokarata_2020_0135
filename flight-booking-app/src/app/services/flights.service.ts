@@ -12,43 +12,26 @@ export class FlightsService {
 
   constructor(private http: HttpClient) {}
 
-  // Metoda za dohvatanje svih letova
   getAllFlights(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);
   }
 
-  // Metoda za dohvatanje jednog leta po ID-u
   getFlightById(flightId: number): Observable<any> {
-    const headers = this.getHeaders();
     const url = `${this.baseUrl}/${flightId}`;
-    return this.http.get<any>(url, { headers });
+    return this.http.get<any>(url);
   }
 
-  // Metoda za kreiranje novog leta
   createFlight(flightData: any): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.post(this.baseUrl, flightData, { headers });
+    return this.http.post(this.baseUrl, flightData);
   }
 
-  // Metoda za ažuriranje leta
   updateFlight(flightId: number, flightData: any): Observable<any> {
-    const headers = this.getHeaders();
     const url = `${this.baseUrl}/${flightId}`;
-    return this.http.put(url, flightData, { headers });
+    return this.http.put(url, flightData);
   }
 
-  // Metoda za brisanje leta
   deleteFlight(flightId: number): Observable<any> {
-    const headers = this.getHeaders();
     const url = `${this.baseUrl}/${flightId}`;
-    return this.http.delete(url, { headers });
-  }
-
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('auth_token');
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
+    return this.http.delete(url);
   }
 }

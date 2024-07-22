@@ -43,6 +43,7 @@ const routes: Routes = [
     canActivate: [UserGuard],
   },
   { path: '', redirectTo: 'book-flight', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }, // ukoliko ne postoji trazena ruta, vrati na login
 ];
 
 @NgModule({
