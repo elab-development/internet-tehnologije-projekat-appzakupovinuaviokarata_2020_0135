@@ -35,7 +35,12 @@
           Actions
         </th>
         <td mat-cell *matCellDef="let flight" class="center-text">
-          <button mat-button color="primary" (click)="onUpdate(flight)">
+          <button
+            mat-button
+            color="primary"
+            #updateButton
+            (click)="onUpdate(flight)"
+          >
             <mat-icon>edit</mat-icon> Update
           </button>
           <button

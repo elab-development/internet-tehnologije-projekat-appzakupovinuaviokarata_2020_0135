@@ -30,6 +30,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UpdateDialogComponent } from './dialogs/update-dialog/update-dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +46,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SidebarComponent,
     FlightsComponent,
     AlertDialogComponent,
+    UpdateDialogComponent,
   ],
 
   imports: [
@@ -53,12 +57,15 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatNativeDateModule,
   ],
   providers: [
     AuthGuard,
     UserGuard,
+    DatePipe,
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

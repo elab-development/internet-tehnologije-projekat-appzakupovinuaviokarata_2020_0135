@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FlightsService } from '../../services/flights.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { UpdateDialogComponent } from '../../dialogs/update-dialog/update-dialog.component';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss'],
 })
 export class FlightsComponent implements OnInit {
+  // @ViewChild('updateButton', { read: ElementRef }) updateButton!: ElementRef;
   flights: any[] = [];
   displayedColumns: string[] = [
     'flight_id',
@@ -25,7 +28,8 @@ export class FlightsComponent implements OnInit {
 
   constructor(
     private flightsService: FlightsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -42,9 +46,33 @@ export class FlightsComponent implements OnInit {
   applyFilter(): void {
     this.filteredFlights.filter = this.searchTerm.trim().toLowerCase();
   }
-
   onUpdate(flight: any): void {
-    console.log('update');
+    const dialogRef = this.dialog.open(UpdateDialogComponent, {
+      autoFocus: false,
+      data: { ...flight },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        result.departure_date = this.datePipe.transform(
+          result.departure_date,
+          'yyyy-MM-dd'
+        );
+        result.arrival_date = this.datePipe.transform(
+          result.arrival_date,
+          'yyyy-MM-dd'
+        );
+
+        this.flightsService
+          .updateFlight(flight.flight_id, result)
+          .subscribe(() => {
+            console.log('Flight updated successfully');
+            this.fetchFlights();
+          });
+      } else {
+        console.log('Update canceled');
+      }
+    });
   }
 
   onDelete(flight: any): void {
