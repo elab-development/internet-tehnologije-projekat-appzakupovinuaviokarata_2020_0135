@@ -54,15 +54,6 @@ export class FlightsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        result.departure_date = this.datePipe.transform(
-          result.departure_date,
-          'yyyy-MM-dd'
-        );
-        result.arrival_date = this.datePipe.transform(
-          result.arrival_date,
-          'yyyy-MM-dd'
-        );
-
         this.flightsService
           .updateFlight(flight.flight_id, result)
           .subscribe(() => {

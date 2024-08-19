@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-update-dialog',
@@ -12,15 +13,30 @@ export class UpdateDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<UpdateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private datePipe: DatePipe
   ) {
     this.flightForm = new FormGroup({
       flight_id: new FormControl({ value: data.flight_id, disabled: true }),
       airline: new FormControl(data.airline, Validators.required),
       origin: new FormControl(data.origin, Validators.required),
       destination: new FormControl(data.destination, Validators.required),
-      departure_date: new FormControl(data.departure_date, Validators.required),
-      arrival_date: new FormControl(data.arrival_date, Validators.required),
+      departure_date: new FormControl(
+        this.datePipe.transform(data.departure_date, 'yyyy-MM-dd'),
+        Validators.required
+      ),
+      departure_time: new FormControl(
+        this.formatTime(data.departure_date),
+        Validators.required
+      ),
+      arrival_date: new FormControl(
+        this.datePipe.transform(data.arrival_date, 'yyyy-MM-dd'),
+        Validators.required
+      ),
+      arrival_time: new FormControl(
+        this.formatTime(data.arrival_date),
+        Validators.required
+      ),
       capacity: new FormControl(data.capacity, [
         Validators.required,
         Validators.min(1),
@@ -32,6 +48,7 @@ export class UpdateDialogComponent {
     });
 
     this.onDepartureDateChange();
+    this.onArrivalTimeChange();
   }
 
   onDepartureDateChange(): void {
@@ -39,22 +56,71 @@ export class UpdateDialogComponent {
       .get('departure_date')
       ?.valueChanges.subscribe((departureDate) => {
         const arrivalDateControl = this.flightForm.get('arrival_date');
-        arrivalDateControl?.setValue(departureDate);
-        arrivalDateControl?.enable();
+        const arrivalTimeControl = this.flightForm.get('arrival_time');
+
+        if (departureDate) {
+          arrivalDateControl?.setValue(departureDate);
+          arrivalDateControl?.enable();
+          arrivalTimeControl?.enable();
+        }
+
         arrivalDateControl?.setValidators([
           Validators.required,
-          Validators.min(departureDate.getTime()),
+          Validators.min(new Date(departureDate).getTime()),
         ]);
       });
+  }
+
+  onArrivalTimeChange(): void {
+    this.flightForm.get('arrival_time')?.valueChanges.subscribe(() => {
+      const departureDate = this.flightForm.get('departure_date')?.value;
+      const departureTime = this.flightForm.get('departure_time')?.value;
+      const arrivalDate = this.flightForm.get('arrival_date')?.value;
+      const arrivalTime = this.flightForm.get('arrival_time')?.value;
+
+      if (departureDate === arrivalDate && arrivalTime < departureTime) {
+        this.flightForm.get('arrival_time')?.setErrors({ invalidTime: true });
+      } else {
+        this.flightForm.get('arrival_time')?.setErrors(null);
+      }
+    });
+  }
+
+  formatTime(date: string | Date): string {
+    const dateObj = new Date(date);
+    const hours = dateObj.getHours().toString().padStart(2, '0');
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 
   onCancel(): void {
     this.dialogRef.close(null);
   }
 
+  formatDateTime(date: string | Date, time: string): string {
+    const formattedDate = this.datePipe.transform(date, 'yyyy-MM-dd');
+    return `${formattedDate} ${time}`;
+  }
   onSubmit(): void {
     if (this.flightForm.valid) {
-      this.dialogRef.close(this.flightForm.getRawValue());
+      const formValues = this.flightForm.getRawValue();
+
+      const departureDateTimeString = this.formatDateTime(
+        formValues.departure_date,
+        formValues.departure_time
+      );
+      const arrivalDateTimeString = this.formatDateTime(
+        formValues.arrival_date,
+        formValues.arrival_time
+      );
+
+      const updatedFlight = {
+        ...formValues,
+        departure_date: departureDateTimeString,
+        arrival_date: arrivalDateTimeString,
+      };
+
+      this.dialogRef.close(updatedFlight);
     }
   }
 }

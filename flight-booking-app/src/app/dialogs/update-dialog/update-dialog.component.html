@@ -24,6 +24,7 @@
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Departure Date</mat-label>
       <input
+        readonly
         matInput
         [matDatepicker]="departurePicker"
         formControlName="departure_date"
@@ -36,8 +37,14 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Departure Time</mat-label>
+      <input matInput type="time" formControlName="departure_time" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Arrival Date</mat-label>
       <input
+        readonly
         matInput
         [matDatepicker]="arrivalPicker"
         formControlName="arrival_date"
@@ -48,6 +55,16 @@
         [for]="arrivalPicker"
       ></mat-datepicker-toggle>
       <mat-datepicker #arrivalPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Arrival Time</mat-label>
+      <input matInput type="time" formControlName="arrival_time" />
+      <mat-error
+        *ngIf="flightForm.get('arrival_time')?.hasError('invalidTime')"
+      >
+        Time of arrival has to be after time of departure.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
