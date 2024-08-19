@@ -61,9 +61,17 @@
           </div>
         </form>
       </aside>
+     
       <div class="column">
-        <div id="FlightResult">
-          <div class="box">
+        <div *ngIf="isLoading" class="has-text-centered">
+          <mat-spinner></mat-spinner>
+        </div>
+        
+        <div *ngIf="!isLoading && flights.length === 0" >
+          Nema letova za izabrane filtere.
+        </div>
+        <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
+          <!-- <div class="box">
             <div class="columns is-vcentered">
               <div class="column is-5">
                 <div class="headerStartingDate">
@@ -81,7 +89,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="box">
             <div class="columns is-vcentered">
               <div class="column is-3">Airline</div>

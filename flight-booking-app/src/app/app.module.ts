@@ -28,6 +28,8 @@ import { FlightsComponent } from './pages/flights/flights.component';
 import { AlertDialogComponent } from './pages/alert/alert.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
+import { BookingConfirmationComponent } from './booking-confirmation/booking-confirmation.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import { UserGuard } from './guards/user.guard';
     SidebarComponent,
     FlightsComponent,
     AlertDialogComponent,
+    BookingConfirmationComponent,
   ],
 
   imports: [
@@ -50,6 +53,7 @@ import { UserGuard } from './guards/user.guard';
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinner
   ],
   providers: [
     AuthGuard,
