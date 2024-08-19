@@ -16,7 +16,19 @@ class FlightController extends Controller
     }
     public function index()
     {
-        $flights = Flight::all();
+        $flights = Flight::all()->map(function ($flight) {
+            return [
+                'flight_id' => $flight->flight_id,
+                'airline' => $flight->airline,
+                'origin' => $flight->origin,
+                'destination' => $flight->destination,
+                'departure_date' => \Carbon\Carbon::parse($flight->departure_date)->format('Y-m-d H:i'),
+                'arrival_date' => \Carbon\Carbon::parse($flight->arrival_date)->format('Y-m-d H:i'),
+                'capacity' => $flight->capacity,
+                'price' => $flight->price,
+            ];
+        });
+
         return response()->json($flights);
     }
 

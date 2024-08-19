@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->string('airline');
             $table->string('origin');
             $table->string('destination');
-            $table->date('departure_date');
-            $table->date('arrival_date');
+            $table->datetime('departure_date');
+            $table->datetime('arrival_date');
             $table->integer('capacity');
             $table->float('price');
             $table->timestamps();
