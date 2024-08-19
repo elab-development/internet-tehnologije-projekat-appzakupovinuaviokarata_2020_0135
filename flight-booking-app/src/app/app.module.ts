@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UpdateDialogComponent } from './dialogs/update-dialog/update-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { AddFlightDialogComponent } from './dialogs/add-flight-dialog/add-flight-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { DatePipe } from '@angular/common';
     FlightsComponent,
     AlertDialogComponent,
     UpdateDialogComponent,
+    AddFlightDialogComponent,
   ],
 
   imports: [

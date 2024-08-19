@@ -4,14 +4,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateDialogComponent } from '../../dialogs/update-dialog/update-dialog.component';
-import { DatePipe } from '@angular/common';
+import { AddFlightDialogComponent } from '../../dialogs/add-flight-dialog/add-flight-dialog.component';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss'],
 })
 export class FlightsComponent implements OnInit {
-  // @ViewChild('updateButton', { read: ElementRef }) updateButton!: ElementRef;
   flights: any[] = [];
   displayedColumns: string[] = [
     'flight_id',
@@ -28,9 +27,23 @@ export class FlightsComponent implements OnInit {
 
   constructor(
     private flightsService: FlightsService,
-    private dialog: MatDialog,
-    private datePipe: DatePipe
+    private dialog: MatDialog
   ) {}
+
+  onCreatingNewFlight(): void {
+    const dialogRef = this.dialog.open(AddFlightDialogComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.flightsService.createFlight(result).subscribe(() => {
+          console.log('Flight created successfully');
+          this.fetchFlights();
+        });
+      } else {
+        console.log('Creating new flight canceled');
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.fetchFlights();

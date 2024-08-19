@@ -48,7 +48,6 @@ export class UpdateDialogComponent {
     });
 
     this.onDepartureDateChange();
-    this.onArrivalTimeChange();
   }
 
   onDepartureDateChange(): void {
@@ -69,21 +68,6 @@ export class UpdateDialogComponent {
           Validators.min(new Date(departureDate).getTime()),
         ]);
       });
-  }
-
-  onArrivalTimeChange(): void {
-    this.flightForm.get('arrival_time')?.valueChanges.subscribe(() => {
-      const departureDate = this.flightForm.get('departure_date')?.value;
-      const departureTime = this.flightForm.get('departure_time')?.value;
-      const arrivalDate = this.flightForm.get('arrival_date')?.value;
-      const arrivalTime = this.flightForm.get('arrival_time')?.value;
-
-      if (departureDate === arrivalDate && arrivalTime < departureTime) {
-        this.flightForm.get('arrival_time')?.setErrors({ invalidTime: true });
-      } else {
-        this.flightForm.get('arrival_time')?.setErrors(null);
-      }
-    });
   }
 
   formatTime(date: string | Date): string {
@@ -113,6 +97,14 @@ export class UpdateDialogComponent {
         formValues.arrival_date,
         formValues.arrival_time
       );
+
+      const departureDate = new Date(departureDateTimeString);
+      const arrivalDate = new Date(arrivalDateTimeString);
+
+      if (departureDate >= arrivalDate) {
+        this.flightForm.get('arrival_time')?.setErrors({ invalidTime: true });
+        return;
+      }
 
       const updatedFlight = {
         ...formValues,
