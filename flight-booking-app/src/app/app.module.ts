@@ -18,22 +18,26 @@ import { TokenInterceptor } from './token.interceptor';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { SearchComponent } from './pages/search/search.component';
 import { BookFlightComponent } from './pages/book-flight/book-flight.component';
 import { WebsiteLandingComponent } from './pages/website-landing/website-landing.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { FlightsComponent } from './pages/flights/flights.component';
+import { FlightsComponent } from './pages/admin/flights/flights.component';
 import { AlertDialogComponent } from './pages/alert/alert.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-import { UpdateDialogComponent } from './dialogs/update-dialog/update-dialog.component';
+import { UpdateDialogComponent } from './dialogs/update-flight-dialog/update-dialog.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { AddFlightDialogComponent } from './dialogs/add-flight-dialog/add-flight-dialog.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { UpdateUserDialogComponent } from './dialogs/update-user-dialog/update-user-dialog.component';
+import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialog.component';
+import { BookingsComponent } from './pages/admin/bookings/bookings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +53,10 @@ import { AddFlightDialogComponent } from './dialogs/add-flight-dialog/add-flight
     AlertDialogComponent,
     UpdateDialogComponent,
     AddFlightDialogComponent,
+    UsersComponent,
+    UpdateUserDialogComponent,
+    AddUserDialogComponent,
+    BookingsComponent,
   ],
 
   imports: [

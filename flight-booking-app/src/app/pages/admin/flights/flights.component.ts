@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FlightsService } from '../../services/flights.service';
+import { FlightsService } from '../../../services/flights.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { UpdateDialogComponent } from '../../dialogs/update-dialog/update-dialog.component';
-import { AddFlightDialogComponent } from '../../dialogs/add-flight-dialog/add-flight-dialog.component';
+import { UpdateDialogComponent } from '../../../dialogs/update-flight-dialog/update-dialog.component';
+import { AddFlightDialogComponent } from '../../../dialogs/add-flight-dialog/add-flight-dialog.component';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
@@ -80,6 +80,7 @@ export class FlightsComponent implements OnInit {
   }
 
   onDelete(flight: any): void {
+    console.log(flight);
     if (confirm('Are you sure you want to delete this flight?')) {
       this.flightsService
         .deleteFlight(flight.flight_id)
