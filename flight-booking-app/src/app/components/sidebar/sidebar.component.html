@@ -4,4 +4,12 @@
     <li><a routerLink="/users" routerLinkActive="is-active">Users</a></li>
     <li><a routerLink="/bookings" routerLinkActive="is-active">Bookings</a></li>
   </ul>
+  <div class="menu-bottom">
+    <ul class="menu-list">
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
+      </li>
+      <li><a (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
 </aside>
