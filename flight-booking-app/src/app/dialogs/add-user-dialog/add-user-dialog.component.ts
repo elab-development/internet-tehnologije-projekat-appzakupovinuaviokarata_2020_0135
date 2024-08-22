@@ -10,7 +10,8 @@ import { UserService } from '../../services/user.service';
 })
 export class AddUserDialogComponent {
   userForm: FormGroup;
-
+  existingUsernames: string[] = [];
+  existingEmails: string[] = [];
   constructor(
     public dialogRef: MatDialogRef<AddUserDialogComponent>,
     private userService: UserService
@@ -24,6 +25,12 @@ export class AddUserDialogComponent {
       ]),
       confirmPassword: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
+    });
+    this.userService.getAllUsers().subscribe((users) => {
+      this.existingUsernames = users.map((user) => user.username);
+    });
+    this.userService.getAllUsers().subscribe((users) => {
+      this.existingEmails = users.map((user) => user.email);
     });
   }
 
@@ -50,6 +57,16 @@ export class AddUserDialogComponent {
         password_confirmation: this.userForm.value.confirmPassword,
         role: this.userForm.value.role,
       };
+      if (this.existingUsernames.includes(formData.username)) {
+        this.userForm.get('username')?.setErrors({ usernameExists: true });
+        this.userForm.get('username')?.markAsTouched();
+        return;
+      }
+      if (this.existingEmails.includes(formData.email)) {
+        this.userForm.get('email')?.setErrors({ email: true });
+        this.userForm.get('email')?.markAsTouched();
+        return;
+      }
       this.dialogRef.close(formData);
     }
   }

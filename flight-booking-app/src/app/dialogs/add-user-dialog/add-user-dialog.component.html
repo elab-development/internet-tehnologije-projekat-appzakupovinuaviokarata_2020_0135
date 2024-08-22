@@ -8,6 +8,9 @@
         <mat-error *ngIf="userForm.get('username')?.hasError('required')">
           Username is required.
         </mat-error>
+        <mat-error *ngIf="userForm.get('username')?.hasError('usernameExists')">
+          Username already exists.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">

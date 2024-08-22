@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { AirportService } from '../../services/airport.service';
 
 @Component({
   selector: 'app-update-dialog',
@@ -10,11 +11,12 @@ import { DatePipe } from '@angular/common';
 })
 export class UpdateDialogComponent {
   flightForm: FormGroup;
-
+  airports: any[] = [];
   constructor(
     public dialogRef: MatDialogRef<UpdateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private airportService: AirportService
   ) {
     this.flightForm = new FormGroup({
       flight_id: new FormControl({ value: data.flight_id, disabled: true }),
@@ -48,6 +50,13 @@ export class UpdateDialogComponent {
     });
 
     this.onDepartureDateChange();
+    this.loadAirports();
+  }
+
+  loadAirports(): void {
+    this.airportService.getAllAirports().subscribe((airports) => {
+      this.airports = airports;
+    });
   }
 
   onDepartureDateChange(): void {

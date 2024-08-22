@@ -13,12 +13,29 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Origin</mat-label>
-      <input matInput formControlName="origin" />
+      <mat-select formControlName="origin">
+        <mat-option *ngFor="let airport of airports" [value]="airport.city">
+          {{ airport.city }}, {{ airport.country }}, {{ airport.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Destination</mat-label>
-      <input matInput formControlName="destination" />
+      <mat-select formControlName="destination">
+        <mat-option
+          *ngFor="let airport of airports"
+          [value]="airport.city"
+          [disabled]="airport.city === flightForm.get('origin')?.value"
+        >
+          {{ airport.city }}, {{ airport.country }}, {{ airport.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="flightForm.get('destination')?.hasError('sameAsOrigin')"
+      >
+        Destination cannot be the same as Origin.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">

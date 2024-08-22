@@ -38,6 +38,9 @@ import { UsersComponent } from './pages/admin/users/users.component';
 import { UpdateUserDialogComponent } from './dialogs/update-user-dialog/update-user-dialog.component';
 import { AddUserDialogComponent } from './dialogs/add-user-dialog/add-user-dialog.component';
 import { BookingsComponent } from './pages/admin/bookings/bookings.component';
+import { AirportsComponent } from './pages/admin/airports/airports.component';
+import { UpdateAirportDialogComponent } from './dialogs/update-airport-dialog/update-airport-dialog.component';
+import { AddAirportDialogComponent } from './dialogs/add-airport-dialog/add-airport-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +60,9 @@ import { BookingsComponent } from './pages/admin/bookings/bookings.component';
     UpdateUserDialogComponent,
     AddUserDialogComponent,
     BookingsComponent,
+    AirportsComponent,
+    UpdateAirportDialogComponent,
+    AddAirportDialogComponent,
   ],
 
   imports: [

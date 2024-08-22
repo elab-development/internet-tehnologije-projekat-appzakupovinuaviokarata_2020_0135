@@ -14,6 +14,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { BookingsComponent } from './pages/admin/bookings/bookings.component';
+import { AirportsComponent } from './pages/admin/airports/airports.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'flights', component: FlightsComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'bookings', component: BookingsComponent, canActivate: [AuthGuard] },
-
+  { path: 'airports', component: AirportsComponent, canActivate: [AuthGuard] },
   //User
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'search', component: SearchComponent, canActivate: [UserGuard] },

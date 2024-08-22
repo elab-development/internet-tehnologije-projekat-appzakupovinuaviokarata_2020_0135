@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { AirportService } from '../../services/airport.service';
 @Component({
   selector: 'app-add-flight-dialog',
   templateUrl: './add-flight-dialog.component.html',
@@ -9,10 +10,11 @@ import { DatePipe } from '@angular/common';
 })
 export class AddFlightDialogComponent {
   flightForm: FormGroup;
-
+  airports: any[] = [];
   constructor(
     public dialogRef: MatDialogRef<AddFlightDialogComponent>,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private airportService: AirportService
   ) {
     this.flightForm = new FormGroup({
       airline: new FormControl('', Validators.required),
@@ -24,6 +26,13 @@ export class AddFlightDialogComponent {
       arrival_time: new FormControl('', Validators.required),
       capacity: new FormControl('', [Validators.required, Validators.min(1)]),
       price: new FormControl('', [Validators.required, Validators.min(0)]),
+    });
+    this.loadAirports();
+  }
+
+  loadAirports(): void {
+    this.airportService.getAllAirports().subscribe((airports) => {
+      this.airports = airports;
     });
   }
 
