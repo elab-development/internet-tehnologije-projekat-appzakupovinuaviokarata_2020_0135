@@ -70,11 +70,8 @@ export class FlightsComponent implements OnInit {
         this.flightsService
           .updateFlight(flight.flight_id, result)
           .subscribe(() => {
-            console.log('Flight updated successfully');
             this.fetchFlights();
           });
-      } else {
-        console.log('Update canceled');
       }
     });
   }
