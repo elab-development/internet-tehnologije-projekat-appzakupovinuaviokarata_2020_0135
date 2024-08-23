@@ -1,1 +1,12 @@
-<p>my-bookings works!</p>
+<div class="container">
+    <h1 class="title">My Bookings</h1>
+    <div *ngFor="let booking of bookings" class="box">
+      <h3 class="title is-4">Booking ID: {{ booking.booking_id }}</h3>
+      <p>Flight ID: {{ booking.flight_id }}</p>
+      <p>Status: {{ booking.status }}</p>
+      <p>Booking Date: {{ booking.booking_date | date }}</p>
+      <p>Airline: {{ booking.flight?.airline }}</p>
+      <!-- Add more flight details as needed -->
+    </div>
+  </div>
+  

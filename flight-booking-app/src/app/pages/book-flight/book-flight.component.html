@@ -1,51 +1,58 @@
 <div class="container">
   <h1 class="title has-text-centered">Flight Booking</h1>
 
-  <div id="FlightResult" class="box">
-    <div class="columns is-vcentered">
-      <div class="column is-5">
-        <div class="headerStartingDate">
-          <h4 class="title is-4">{{ originAirportName }}</h4>
-
-          <p class="subtitle is-6">
-            {{ flight.departure_date | date : "yyyy-MM-dd" }}
-          </p>
+  <div>
+    <div *ngIf="isLoading" class="has-text-centered">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div id="FlightResult" *ngIf="!isLoading" class="box">
+      <div class="columns is-vcentered">
+        <div class="column is-5">
+          <div class="headerStartingDate">
+            <h4 class="title is-4">{{ originAirportName }}</h4>
+  
+            <p class="subtitle is-6">
+              {{ flight?.departure_date | date: "yyyy-MM-dd" }}
+            </p>
+          </div>
+        </div>
+        <div class="column is-2 has-text-centered">
+          <i class="fas fa-long-arrow-alt-right" style="font-size: 2rem"></i>
+        </div>
+        <div class="column is-5 has-text-right">
+          <div class="headerReturnDate">
+            <h4 class="title is-4">{{ destinationAirportName }}</h4>
+            <p class="subtitle is-6">
+              {{ flight?.arrival_date | date: "yyyy-MM-dd" }}
+            </p>
+          </div>
         </div>
       </div>
-      <div class="column is-2 has-text-centered">
-        <i class="fas fa-long-arrow-alt-right" style="font-size: 2rem"></i>
-      </div>
-      <div class="column is-5 has-text-right">
-        <div class="headerReturnDate">
-          <h4 class="title is-4">{{ destinationAirportName }}</h4>
-          <p class="subtitle is-6">
-            {{ flight.arrival_date | date : "yyyy-MM-dd" }}
-          </p>
+      <div class="box">
+        <div class="columns is-vcentered">
+          <div class="column is-3">Airline</div>
+          <div class="column is-2">Departure</div>
+          <div class="column is-2">Arrival</div>
+          <div class="column is-3">Fare</div>
+          <div class="column is-2"></div>
+        </div>
+        <div class="columns is-vcentered">
+          <div class="column is-3">{{ flight?.airline }}</div>
+          <div class="column is-2">
+            {{ flight?.departure_date | date: "shortTime" }}
+          </div>
+          <div class="column is-2">
+            {{ flight?.arrival_date | date: "shortTime" }}
+          </div>
+          <div class="column is-3">{{ flight?.price }} &euro;</div>
+          <div class="column is-2">
+            <button class="button is-success" (click)="confirmBooking()">Confirm Booking</button>
+          </div>
         </div>
       </div>
     </div>
+  
+    
   </div>
-
-  <div class="box">
-    <div class="columns is-vcentered">
-      <div class="column is-3">Airline</div>
-      <div class="column is-2">Departure</div>
-      <div class="column is-2">Arrival</div>
-      <div class="column is-3">Fare</div>
-      <div class="column is-2"></div>
-    </div>
-    <div class="columns is-vcentered">
-      <div class="column is-3">{{ flight.airline }}</div>
-      <div class="column is-2">
-        {{ flight.departure_date | date : "shortTime" }}
-      </div>
-      <div class="column is-2">
-        {{ flight.arrival_date | date : "shortTime" }}
-      </div>
-      <div class="column is-3">{{ flight.price }} &euro;</div>
-      <div class="column is-2">
-        <!-- <button class="button is-success" (click)="confirmBooking">Confirm Booking</button> -->
-      </div>
-    </div>
-  </div>
+  
 </div>

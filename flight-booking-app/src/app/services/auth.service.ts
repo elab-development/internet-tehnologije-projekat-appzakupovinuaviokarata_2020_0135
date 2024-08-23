@@ -27,4 +27,14 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post(`${this.url}/logout`, {});
   }
+
+  getUserId(): number | null {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      const user = JSON.parse(userString);
+      return user ? user.id : null;
+    }
+    return null;
+  }
+  
 }
