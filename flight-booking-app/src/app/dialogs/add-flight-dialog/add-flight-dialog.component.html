@@ -1,0 +1,91 @@
+<h1 mat-dialog-title>Add New Flight</h1>
+<div mat-dialog-content>
+  <form [formGroup]="flightForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Airline</mat-label>
+      <input matInput formControlName="airline" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Origin</mat-label>
+      <mat-select formControlName="origin">
+        <mat-option *ngFor="let airport of airports" [value]="airport.city">
+          {{ airport.city }}, {{ airport.country }}, {{ airport.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Destination</mat-label>
+      <mat-select formControlName="destination">
+        <mat-option
+          *ngFor="let airport of airports"
+          [value]="airport.city"
+          [disabled]="airport.city === flightForm.get('origin')?.value"
+        >
+          {{ airport.city }}, {{ airport.country }}, {{ airport.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Departure Date</mat-label>
+      <input
+        readonly
+        matInput
+        [matDatepicker]="departurePicker"
+        formControlName="departure_date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="departurePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #departurePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Departure Time</mat-label>
+      <input matInput type="time" formControlName="departure_time" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Arrival Date</mat-label>
+      <input
+        readonly
+        matInput
+        [matDatepicker]="arrivalPicker"
+        formControlName="arrival_date"
+        [min]="flightForm.get('departure_date')?.value"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="arrivalPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #arrivalPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Arrival Time</mat-label>
+      <input matInput type="time" formControlName="arrival_time" />
+      <mat-error
+        *ngIf="flightForm.get('arrival_time')?.hasError('invalidTime')"
+      >
+        Time of arrival has to be after time of departure.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Capacity</mat-label>
+      <input matInput type="number" formControlName="capacity" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" formControlName="price" />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSubmit()">Submit</button>
+</div>

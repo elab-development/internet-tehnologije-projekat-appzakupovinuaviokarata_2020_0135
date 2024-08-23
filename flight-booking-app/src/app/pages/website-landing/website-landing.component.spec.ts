@@ -8,9 +8,8 @@ describe('WebsiteLandingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WebsiteLandingComponent]
-    })
-    .compileComponents();
+      declarations: [WebsiteLandingComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WebsiteLandingComponent);
     component = fixture.componentInstance;

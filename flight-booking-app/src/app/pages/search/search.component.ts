@@ -5,14 +5,12 @@ import { Airport } from '../../models/airport';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss'
+  styleUrl: './search.component.scss',
 })
 export class SearchComponent {
-
   fromAirport: number = 0;
   toAirport: number = 0;
   travelDate: string = '';
@@ -20,7 +18,7 @@ export class SearchComponent {
   airports: Airport[] = [];
   isLoading = false;
 
-  constructor(private searchService: SearchService, private router: Router) { }
+  constructor(private searchService: SearchService, private router: Router) {}
   ngOnInit() {
     this.loadAirports();
   }
@@ -30,6 +28,7 @@ export class SearchComponent {
       //console.log(this.airports); // radi
     });
   }
+ 
 
   searchFlights() {
     this.isLoading = true;
@@ -44,6 +43,15 @@ export class SearchComponent {
         this.flights = []; // osigurava da se prikaže poruka ako dođe do greške
       }
     });
+
+
+//   searchFlights() {
+//     this.searchService
+//       .searchFlights(this.fromAirport, this.toAirport, this.travelDate)
+//       .subscribe((res: Flight[]) => {
+//         this.flights = res;
+//         //this.flights = res.data; mozda treba ovako
+//       });
 
   }
 

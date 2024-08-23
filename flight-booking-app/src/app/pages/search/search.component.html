@@ -1,64 +1,102 @@
 <section id="bodyContainer">
-    <!-- Flight Search Form Starts -->
-    <div class="columns">
-      <aside class="column is-one-quarter">
-        <form name="searchFlight" class="box">
-          <div class="field">
-            <label class="radio">
-              <input type="radio" id="radioOneWay" name="trip" value="One Way" checked>
-              One Way
-            </label>
-            <label class="radio">
-              <input type="radio" id="radioRoundTrip" name="trip" value="Round Trip">
-              Round Trip
-            </label>
-          </div>
-          <div class="sourceDestination mb-3">
-            <div class="control">
-              <div class="select">
-                <select name="fromAirport" [(ngModel)]="fromAirport">
-                  <option value="">Select airport</option>
-                  <option *ngFor="let item of airports" [value]="item.airport_id">
-                    {{item.name}}, {{item.city}}
-                  </option>
-                </select>
-              </div>
+  <!-- Flight Search Form Starts -->
+  <div class="columns">
+    <aside class="column is-one-quarter">
+      <form name="searchFlight" class="box">
+        <div class="field">
+          <label class="radio">
+            <input
+              type="radio"
+              id="radioOneWay"
+              name="trip"
+              value="One Way"
+              checked
+            />
+            One Way
+          </label>
+          <label class="radio">
+            <input
+              type="radio"
+              id="radioRoundTrip"
+              name="trip"
+              value="Round Trip"
+            />
+            Round Trip
+          </label>
+        </div>
+        <div class="sourceDestination mb-3">
+          <div class="control">
+            <div class="select">
+              <select name="fromAirport" [(ngModel)]="fromAirport">
+                <option value="">Select airport</option>
+                <option *ngFor="let item of airports" [value]="item.airport_id">
+                  {{ item.name }}, {{ item.city }}
+                </option>
+              </select>
             </div>
           </div>
-          
-          <div class="sourceDestination mb-3">
-            <div class="control">
-              <div class="select">
-                <select name="toAirport" [(ngModel)]="toAirport">
-                  <option value="">Select airport</option>
-                  <option *ngFor="let item of airports" [value]="item.airport_id">
-                    {{item.name}}, {{item.city}}
-                  </option>
-                </select>
-              </div>
+        </div>
+
+        <div class="sourceDestination mb-3">
+          <div class="control">
+            <div class="select">
+              <select name="toAirport" [(ngModel)]="toAirport">
+                <option value="">Select airport</option>
+                <option *ngFor="let item of airports" [value]="item.airport_id">
+                  {{ item.name }}, {{ item.city }}
+                </option>
+              </select>
             </div>
           </div>
-          
-          <div class="field">
-            <div class="control">
-              <input class="input" type="date" name="travelDate" placeholder="Travel Date" id="travelDate" [(ngModel)]="travelDate"  />
-            </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              type="date"
+              name="travelDate"
+              placeholder="Travel Date"
+              id="travelDate"
+              [(ngModel)]="travelDate"
+            />
           </div>
-          <div class="field">
-            <div class="control">
-              <input class="input" type="date" name="travelDate" placeholder="Return Date" id="dateOfReturn" [(ngModel)]="travelDate"  />
-            </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              type="date"
+              name="travelDate"
+              placeholder="Return Date"
+              id="dateOfReturn"
+              [(ngModel)]="travelDate"
+            />
           </div>
-          <div class="field">
-            <div class="control">
-              <input class="input" type="number" id="noOfTravelers" min="1" max="8" placeholder="Number of Travelers">
-            </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              id="noOfTravelers"
+              min="1"
+              max="8"
+              placeholder="Number of Travelers"
+            />
           </div>
-          <div class="field">
-            <div class="control">
-              <button class="button is-primary" type="button" (click)="searchFlights()">Search</button>
-            </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button
+              class="button is-primary"
+              type="button"
+              (click)="searchFlights()"
+            >
+              Search
+            </button>
           </div>
+
         </form>
       </aside>
      
@@ -81,14 +119,34 @@
               </div>
               <div class="column is-2 has-text-centered">
                 <i class="fas fa-long-arrow-alt-right" style="font-size: 2rem;"></i>
-              </div>
-              <div class="column is-5 has-text-right">
-                <div class="headeReturnDate">
-                  <h4 class="title is-4">Brussels (BRU)</h4>
-                  <p class="subtitle is-6">2024-03-06</p>
-                </div>
+
+        </div>
+      </form>
+    </aside>
+    <div class="column">
+      <div id="FlightResult">
+        <div class="box">
+          <div class="columns is-vcentered">
+            <div class="column is-5">
+              <div class="headerStartingDate">
+                <h4 class="title is-4">Oslo (OSL)</h4>
+                <p class="subtitle is-6">2024-03-06</p>
+
               </div>
             </div>
+            <div class="column is-2 has-text-centered">
+              <i
+                class="fas fa-long-arrow-alt-right"
+                style="font-size: 2rem"
+              ></i>
+            </div>
+            <div class="column is-5 has-text-right">
+              <div class="headeReturnDate">
+                <h4 class="title is-4">Brussels (BRU)</h4>
+                <p class="subtitle is-6">2024-03-06</p>
+              </div>
+            </div>
+
           </div> -->
           <div class="box">
             <div class="columns is-vcentered">
@@ -98,32 +156,48 @@
               <div class="column is-3">Fare</div>
               <div class="column is-2"></div>
             </div>
+
           </div>
-          <div *ngFor="let flight of flights" class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>{{ flight.airline }}</div>
-                  </div>
+        </div>
+        <div class="box">
+          <div class="columns is-vcentered">
+            <div class="column is-3">Airline</div>
+            <div class="column is-2">Departure</div>
+            <div class="column is-2">Arrival</div>
+            <div class="column is-3">Fare</div>
+            <div class="column is-2"></div>
+
+          </div>
+        </div>
+        <div *ngFor="let flight of flights" class="box">
+          <div class="columns is-vcentered">
+            <div class="column is-3">
+              <div class="columns is-vcentered">
+                <div class="column is-4">
+                  <figure class="image is-48x48">
+                    <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
+                  </figure>
+                </div>
+                <div class="column is-8">
+                  <div>{{ flight.airline }}</div>
                 </div>
               </div>
-              <div class="column is-2">{{ flight.departure_date }}</div>
-              <div class="column is-2">{{ flight.arrival_date }}</div>
-              <div class="column is-3">{{ flight.capacity }}</div>
-              <div class="column is-2">
-                <button class="button is-danger" (click)="bookFlight(flight.flight_id)">Book Now</button>
-              </div>
-              
+            </div>
+            <div class="column is-2">{{ flight.departure_date }}</div>
+            <div class="column is-2">{{ flight.arrival_date }}</div>
+            <div class="column is-3">{{ flight.capacity }}</div>
+            <div class="column is-2">
+              <button
+                class="button is-danger"
+                (click)="bookFlight(flight.flight_id)"
+              >
+                Book Now
+              </button>
             </div>
           </div>
-          
-<!-- 
+        </div>
+
+        <!-- 
           <div class="box">
             <div class="columns is-vcentered">
               <div class="column is-3">
@@ -262,8 +336,7 @@
               </div>
             </div>
           </div> -->
-        </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

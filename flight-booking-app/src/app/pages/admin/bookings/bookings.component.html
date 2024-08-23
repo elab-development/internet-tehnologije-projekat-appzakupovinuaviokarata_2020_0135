@@ -1,0 +1,110 @@
+<div class="bookings-page">
+  <div class="sidebar-container">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="page">
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Search bookings..."
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+      />
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="filteredBookings"
+      class="bookings-table mat-elevation-z8"
+    >
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          User
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.user.username }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="flight_id">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Flight ID
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.flight_id }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="booking_date">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Booking Date
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.booking_date }}
+        </td>
+      </ng-container>
+
+      <!-- Origin Column -->
+      <ng-container matColumnDef="origin">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Origin
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.flight.origin }}
+        </td>
+      </ng-container>
+
+      <!-- Destination Column -->
+      <ng-container matColumnDef="destination">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Destination
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.flight.destination }}
+        </td>
+      </ng-container>
+
+      <!-- Departure Date Column -->
+      <ng-container matColumnDef="departure_date">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Departure Date
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.flight.departure_date | date : "yyyy-MM-dd HH:mm" }}
+        </td>
+      </ng-container>
+
+      <!-- Arrival Date Column -->
+      <ng-container matColumnDef="arrival_date">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Arrival Date
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          {{ booking.flight.arrival_date | date : "yyyy-MM-dd HH:mm" }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="center-text header">
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let booking" class="center-text column-text">
+          <button
+            mat-button
+            class="delete-btn"
+            color="warn"
+            (click)="onDelete(booking.booking_id)"
+          >
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

@@ -1,11 +1,13 @@
-/* sidebar.component.scss */
 .menu {
-  background-color: #2c3e50; /* Dark blue-gray */
+  background-color: #2c3e50; 
   color: white;
-  height: 100vh; /* Full height */
   padding: 20px;
-  border-radius: 0; /* Remove border-radius */
-  width: 250px; /* Adjust the width */
+  border-radius: 0; 
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh; /* Ovo će sidebar-u omogućiti da zauzme punu visinu ekrana */
 }
 
 .menu-label {
@@ -19,6 +21,10 @@
 }
 
 .menu-list a:hover {
-  background-color: #34495e; /* Slightly lighter dark blue-gray */
-  color: #ecf0f1; /* Light gray */
+  background-color: #34495e; 
+  color: #ecf0f1;
+}
+
+.menu-bottom {
+  margin-top: auto;
 }
