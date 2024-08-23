@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Airport } from '../models/airport';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchService {
   url: string = 'http://127.0.0.1:8000/api';
@@ -21,29 +21,40 @@ export class SearchService {
   }
 
   getAllAirport(): Observable<Airport[]> {
-    return this.http.get<Airport[]>(`${this.url}/airports`, { headers: this.getHeaders() });
+    return this.http.get<Airport[]>(`${this.url}/airports`, {
+      headers: this.getHeaders(),
+    });
   }
 
   getAllFlights(): Observable<Flight[]> {
-    return this.http.get<Flight[]>(`${this.url}/flights`, { headers: this.getHeaders() });
+    return this.http.get<Flight[]>(`${this.url}/flights`, {
+      headers: this.getHeaders(),
+    });
   }
 
-  searchFlights(departureAirportID: number, arrivalAirportID: number, travelDate: string): Observable<Flight[]> {
-    return this.http.get<Flight[]>(`${this.url}/flights`, { headers: this.getHeaders() }).pipe(
-      map((flights: Flight[]) =>
-        flights.filter(flight =>
-          flight.origin === departureAirportID.toString() &&
-          flight.destination === arrivalAirportID.toString() &&
-          flight.departure_date === travelDate
+  searchFlights(
+    departureAirportID: number,
+    arrivalAirportID: number,
+    travelDate: string
+  ): Observable<Flight[]> {
+    return this.http
+      .get<Flight[]>(`${this.url}/flights`, { headers: this.getHeaders() })
+      .pipe(
+        map((flights: Flight[]) =>
+          flights.filter(
+            (flight) =>
+              flight.origin === departureAirportID.toString() &&
+              flight.destination === arrivalAirportID.toString() &&
+              flight.departure_date === travelDate + ' 08:00'
+          )
         )
-      )
-    );
+      );
   }
 
   getAirportName(id: number): Observable<string> {
     return this.getAllAirport().pipe(
-      map(airports => {
-        const airport = airports.find(a => a.airport_id === id);
+      map((airports) => {
+        const airport = airports.find((a) => a.airport_id === id);
         return airport ? airport.name : 'Unknown Airport';
       })
     );
@@ -51,6 +62,6 @@ export class SearchService {
 
   private getToken(): string {
     // Replace this with your session management logic to retrieve the token
-    return 'YOUR_TOKEN_HERE'; 
+    return 'YOUR_TOKEN_HERE';
   }
 }

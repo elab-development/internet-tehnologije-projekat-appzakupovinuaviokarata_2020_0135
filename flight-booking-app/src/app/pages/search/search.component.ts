@@ -28,31 +28,26 @@ export class SearchComponent {
       //console.log(this.airports); // radi
     });
   }
- 
 
   searchFlights() {
     this.isLoading = true;
-    this.searchService.searchFlights(this.fromAirport, this.toAirport, this.travelDate).subscribe({
-      next: (res: Flight[]) => {
-        this.flights = res;
-        //this.flights = res.data; mozda treba ovako 
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-        this.flights = []; // osigurava da se prikaže poruka ako dođe do greške
-      }
-    });
+    console.log(this.fromAirport);
+    console.log(this.toAirport);
+    console.log(this.travelDate);
 
-
-//   searchFlights() {
-//     this.searchService
-//       .searchFlights(this.fromAirport, this.toAirport, this.travelDate)
-//       .subscribe((res: Flight[]) => {
-//         this.flights = res;
-//         //this.flights = res.data; mozda treba ovako
-//       });
-
+    this.searchService
+      .searchFlights(this.fromAirport, this.toAirport, this.travelDate)
+      .subscribe({
+        next: (res: Flight[]) => {
+          this.flights = res;
+          //this.flights = res.data; mozda treba ovako
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+          this.flights = []; // osigurava da se prikaže poruka ako dođe do greške
+        },
+      });
   }
 
   bookFlight(flightId: number) {
