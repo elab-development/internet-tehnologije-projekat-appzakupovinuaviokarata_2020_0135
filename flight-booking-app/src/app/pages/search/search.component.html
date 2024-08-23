@@ -86,7 +86,7 @@
             />
           </div>
         </div>
-        <div class="field">
+        <form class="field">
           <div class="control">
             <button
               class="button is-primary"
@@ -96,20 +96,20 @@
               Search
             </button>
           </div>
-
         </form>
-      </aside>
-     
-      <div class="column">
-        <div *ngIf="isLoading" class="has-text-centered">
-          <mat-spinner></mat-spinner>
-        </div>
-        
-        <div *ngIf="!isLoading && flights.length === 0" >
-          Nema letova za izabrane filtere.
-        </div>
-        <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
-          <!-- <div class="box">
+      </form>
+    </aside>
+
+    <div class="column">
+      <div *ngIf="isLoading" class="has-text-centered">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="!isLoading && flights.length === 0">
+        Nema letova za izabrane filtere.
+      </div>
+      <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
+        <!-- <div class="box">
             <div class="columns is-vcentered">
               <div class="column is-5">
                 <div class="headerStartingDate">
@@ -148,17 +148,6 @@
             </div>
 
           </div> -->
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">Airline</div>
-              <div class="column is-2">Departure</div>
-              <div class="column is-2">Arrival</div>
-              <div class="column is-3">Fare</div>
-              <div class="column is-2"></div>
-            </div>
-
-          </div>
-        </div>
         <div class="box">
           <div class="columns is-vcentered">
             <div class="column is-3">Airline</div>
@@ -166,38 +155,47 @@
             <div class="column is-2">Arrival</div>
             <div class="column is-3">Fare</div>
             <div class="column is-2"></div>
-
           </div>
         </div>
-        <div *ngFor="let flight of flights" class="box">
-          <div class="columns is-vcentered">
-            <div class="column is-3">
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <figure class="image is-48x48">
-                    <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
-                  </figure>
-                </div>
-                <div class="column is-8">
-                  <div>{{ flight.airline }}</div>
-                </div>
+      </div>
+      <div class="box">
+        <div class="columns is-vcentered">
+          <div class="column is-3">Airline</div>
+          <div class="column is-2">Departure</div>
+          <div class="column is-2">Arrival</div>
+          <div class="column is-3">Fare</div>
+          <div class="column is-2"></div>
+        </div>
+      </div>
+      <div *ngFor="let flight of flights" class="box">
+        <div class="columns is-vcentered">
+          <div class="column is-3">
+            <div class="columns is-vcentered">
+              <div class="column is-4">
+                <figure class="image is-48x48">
+                  <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
+                </figure>
+              </div>
+              <div class="column is-8">
+                <div>{{ flight.airline }}</div>
               </div>
             </div>
-            <div class="column is-2">{{ flight.departure_date }}</div>
-            <div class="column is-2">{{ flight.arrival_date }}</div>
-            <div class="column is-3">{{ flight.capacity }}</div>
-            <div class="column is-2">
-              <button
-                class="button is-danger"
-                (click)="bookFlight(flight.flight_id)"
-              >
-                Book Now
-              </button>
-            </div>
+          </div>
+          <div class="column is-2">{{ flight.departure_date }}</div>
+          <div class="column is-2">{{ flight.arrival_date }}</div>
+          <div class="column is-3">{{ flight.capacity }}</div>
+          <div class="column is-2">
+            <button
+              class="button is-danger"
+              (click)="bookFlight(flight.flight_id)"
+            >
+              Book Now
+            </button>
           </div>
         </div>
+      </div>
 
-        <!-- 
+      <!-- 
           <div class="box">
             <div class="columns is-vcentered">
               <div class="column is-3">
@@ -336,7 +334,7 @@
               </div>
             </div>
           </div> -->
-      </div>
     </div>
   </div>
+  <!-- </div> -->
 </section>
