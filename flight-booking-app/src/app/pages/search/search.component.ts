@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
   styleUrl: './search.component.scss',
 })
 export class SearchComponent {
-  fromAirport: number = 0;
-  toAirport: number = 0;
+  fromAirport: Airport;
+  toAirport: Airport;
   travelDate: string = '';
+
   flights: Flight[] = [];
   airports: Airport[] = [];
   isLoading = false;
@@ -31,16 +32,12 @@ export class SearchComponent {
 
   searchFlights() {
     this.isLoading = true;
-    console.log(this.fromAirport);
-    console.log(this.toAirport);
-    console.log(this.travelDate);
 
     this.searchService
       .searchFlights(this.fromAirport, this.toAirport, this.travelDate)
       .subscribe({
         next: (res: Flight[]) => {
           this.flights = res;
-          //this.flights = res.data; mozda treba ovako
           this.isLoading = false;
         },
         error: () => {

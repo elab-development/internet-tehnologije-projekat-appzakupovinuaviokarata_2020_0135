@@ -60,6 +60,20 @@ export class AddFlightDialogComponent {
 
       const departureDate = new Date(departureDateTimeString);
       const arrivalDate = new Date(arrivalDateTimeString);
+      const originF =
+        formValues.origin.city +
+        ', ' +
+        formValues.origin.country +
+        ', ' +
+        formValues.origin.name;
+      const destinationF =
+        formValues.destination.city +
+        ', ' +
+        formValues.destination.country +
+        ', ' +
+        formValues.destination.name;
+      console.log(originF);
+      console.log(destinationF);
 
       if (departureDate >= arrivalDate) {
         this.flightForm.get('arrival_time')?.setErrors({ invalidTime: true });
@@ -70,6 +84,8 @@ export class AddFlightDialogComponent {
         ...formValues,
         departure_date: departureDateTimeString,
         arrival_date: arrivalDateTimeString,
+        origin: originF,
+        destination: destinationF,
       };
 
       this.dialogRef.close(newFlight);

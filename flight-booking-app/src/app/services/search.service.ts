@@ -13,42 +13,35 @@ export class SearchService {
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders(): HttpHeaders {
-    const token = this.getToken(); // Replace with your session method to get the token
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${token}`);
-    return headers;
-  }
-
   getAllAirport(): Observable<Airport[]> {
-    return this.http.get<Airport[]>(`${this.url}/airports`, {
-      headers: this.getHeaders(),
-    });
+    return this.http.get<Airport[]>(`${this.url}/airports`);
   }
 
   getAllFlights(): Observable<Flight[]> {
-    return this.http.get<Flight[]>(`${this.url}/flights`, {
-      headers: this.getHeaders(),
-    });
+    return this.http.get<Flight[]>(`${this.url}/flights`);
   }
 
   searchFlights(
-    departureAirportID: number,
-    arrivalAirportID: number,
+    departureAirport: Airport,
+    arrivalAirport: Airport,
     travelDate: string
   ): Observable<Flight[]> {
     return this.http
-      .get<Flight[]>(`${this.url}/flights`, { headers: this.getHeaders() })
+      .get<Flight[]>(`${this.url}/flights`)
       .pipe(
         map((flights: Flight[]) =>
           flights.filter(
             (flight) =>
-              flight.origin === departureAirportID.toString() &&
-              flight.destination === arrivalAirportID.toString() &&
-              flight.departure_date === travelDate + ' 08:00'
+              flight.origin === this.formatAirport(departureAirport) &&
+              flight.destination === this.formatAirport(arrivalAirport) &&
+              flight.departure_date.split(' ')[0] === travelDate
           )
         )
       );
+  }
+
+  private formatAirport(airport: Airport): string {
+    return `${airport.city}, ${airport.country}, ${airport.name}`;
   }
 
   getAirportName(id: number): Observable<string> {
@@ -58,10 +51,5 @@ export class SearchService {
         return airport ? airport.name : 'Unknown Airport';
       })
     );
-  }
-
-  private getToken(): string {
-    // Replace this with your session management logic to retrieve the token
-    return 'YOUR_TOKEN_HERE';
   }
 }
