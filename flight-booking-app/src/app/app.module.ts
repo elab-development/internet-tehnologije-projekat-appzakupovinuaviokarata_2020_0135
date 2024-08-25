@@ -28,6 +28,8 @@ import { FlightsComponent } from './pages/admin/flights/flights.component';
 import { AlertDialogComponent } from './pages/alert/alert.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
+import { BookingConfirmationComponent } from './booking-confirmation/booking-confirmation.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UpdateDialogComponent } from './dialogs/update-flight-dialog/update-dialog.component';
@@ -54,6 +56,7 @@ import { AddAirportDialogComponent } from './dialogs/add-airport-dialog/add-airp
     SidebarComponent,
     FlightsComponent,
     AlertDialogComponent,
+    BookingConfirmationComponent,
     UpdateDialogComponent,
     AddFlightDialogComponent,
     UsersComponent,
@@ -72,6 +75,7 @@ import { AddAirportDialogComponent } from './dialogs/add-airport-dialog/add-airp
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinner,
     MatSnackBarModule,
     MatNativeDateModule,
   ],

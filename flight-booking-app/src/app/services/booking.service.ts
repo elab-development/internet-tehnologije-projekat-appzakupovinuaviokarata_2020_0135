@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -32,5 +33,13 @@ export class BookingService {
 
   deleteBooking(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
+  }
+
+  confirmBooking(userId: number, flightId: number): Observable<any> {
+    const bookingData = {
+      flight_id: flightId,
+      status: 'confirmed',
+    };
+    return this.http.post(`${this.baseUrl}`, bookingData);
   }
 }
