@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateDialogComponent } from '../../../dialogs/update-flight-dialog/update-dialog.component';
 import { AddFlightDialogComponent } from '../../../dialogs/add-flight-dialog/add-flight-dialog.component';
+import {MatPaginator} from "@angular/material/paginator";
+import {Flight} from "../../../models/flight";
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
@@ -24,6 +26,9 @@ export class FlightsComponent implements OnInit {
   ];
   filteredFlights: MatTableDataSource<any>;
   searchTerm: string = '';
+  dataSource = new MatTableDataSource<Flight>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private flightsService: FlightsService,
@@ -53,11 +58,15 @@ export class FlightsComponent implements OnInit {
     this.flightsService.getAllFlights().subscribe((data) => {
       this.flights = data;
       this.filteredFlights = new MatTableDataSource(this.flights);
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
   applyFilter(): void {
     this.filteredFlights.filter = this.searchTerm.trim().toLowerCase();
+    this.dataSource = this.filteredFlights;
+    this.dataSource.paginator = this.paginator;
   }
   onUpdate(flight: any): void {
     const dialogRef = this.dialog.open(UpdateDialogComponent, {

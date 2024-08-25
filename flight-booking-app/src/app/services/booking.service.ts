@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BookingService {
-  private baseUrl = 'http://localhost:8000/api/bookings';
-  private baseUrlData = 'http://localhost:8000/api/bookingsall';
+  private baseUrl = 'http://127.0.0.1:8000/api/bookings';
+  private baseUrlData = 'http://127.0.0.1:8000/api/bookingsall';
   constructor(private http: HttpClient) {}
 
   getAllBookings(): Observable<any[]> {

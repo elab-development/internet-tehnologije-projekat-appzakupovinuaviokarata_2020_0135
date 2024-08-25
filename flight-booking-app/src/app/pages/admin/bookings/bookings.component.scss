@@ -1,36 +1,39 @@
 .bookings-page {
     display: flex;
   }
-  
+
   .sidebar-container {
-    width: 250px; 
+    width: 250px;
     background-color: #2c3e50;    //#34495e
     min-height: 100vh;
   }
-  
+
   .page {
-    width: 100%; 
-    padding: 20px; 
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
-  
+
   .bookings-table {
     border-collapse: separate;
     border-spacing: 0 10px;
-    background-color: #2c3e50; 
+    background-color: #2c3e50;
     border-radius: 12px;
     overflow: hidden;
   }
-  
+
   .mat-mdc-cell {
     color: #ecf0f1;
   }
-  
+
   .search-container {
     margin: 20px 0 40px;
     display: flex;
     justify-content: flex-start;
   }
-  
+
   .search-container input {
     width: 300px;
     height: 60px;
@@ -41,7 +44,7 @@
     color: #ecf0f1;
   }
   .search-container input::placeholder {
-    color: lightgray; 
+    color: lightgray;
   }
   // .delete-btn{
   //   padding: 15px 5px 15px 5px;
@@ -60,14 +63,23 @@
     background-color: #ecf0f1; /* Light gray */
   }
 
-  
+mat-paginator {
+  background-color: #2c3e50;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px;
+}
+.paginator-container {
+  margin-top: auto;
+
+}
 //   .pagination {
 //     display: flex;
 //     justify-content: center;
 //     align-items: center;
 //     margin-top: 20px;
 //   }
-  
+
 //   .pagination button {
 //     margin: 0 10px;
 //   }

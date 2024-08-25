@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { BookingService } from '../../../services/booking.service';
 import { UserService } from '../../../services/user.service';
+import {MatTableDataSource} from "@angular/material/table";
+import {Airport} from "../../../models/airport";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-bookings',
@@ -21,6 +24,8 @@ export class BookingsComponent implements OnInit {
     'arrival_date',
     'actions',
   ];
+  dataSource = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private bookingService: BookingService,
@@ -36,6 +41,8 @@ export class BookingsComponent implements OnInit {
       console.log(data);
       this.bookings = data;
       this.filteredBookings = data;
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -54,6 +61,8 @@ export class BookingsComponent implements OnInit {
           .includes(this.searchTerm.toLowerCase()) ||
         booking.status.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+    this.dataSource.data = this.filteredBookings;
+    this.dataSource.paginator = this.paginator;
   }
 
   onDelete(booking: number): void {

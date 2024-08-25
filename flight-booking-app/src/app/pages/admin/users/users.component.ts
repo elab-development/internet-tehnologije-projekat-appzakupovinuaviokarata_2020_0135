@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../services/user.service';
 import { UpdateUserDialogComponent } from '../../../dialogs/update-user-dialog/update-user-dialog.component';
 import { AddUserDialogComponent } from '../../../dialogs/add-user-dialog/add-user-dialog.component';
+import {MatTableDataSource} from "@angular/material/table";
+import {Airport} from "../../../models/airport";
+import {MatPaginator} from "@angular/material/paginator";
+import {User} from "../../../models/user";
 
 @Component({
   selector: 'app-users',
@@ -14,6 +18,10 @@ export class UsersComponent implements OnInit {
   filteredUsers: any[] = [];
   searchTerm: string = '';
   displayedColumns: string[] = ['username', 'email', 'role'];
+  dataSource = new MatTableDataSource<User>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private userService: UserService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -24,6 +32,9 @@ export class UsersComponent implements OnInit {
     this.userService.getAllUsers().subscribe((data: any[]) => {
       this.users = data;
       this.filteredUsers = data;
+      this.dataSource.data = this.users;
+      this.dataSource.paginator = this.paginator;
+
     });
   }
 
@@ -34,6 +45,9 @@ export class UsersComponent implements OnInit {
         user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         user.role.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+    this.dataSource.data = this.filteredUsers;
+    this.dataSource.paginator = this.paginator;
   }
 
   onCreatingNewUser(): void {
