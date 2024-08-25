@@ -28,10 +28,8 @@ import { FlightsComponent } from './pages/admin/flights/flights.component';
 import { AlertDialogComponent } from './pages/alert/alert.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
-// <<<<<<< jovana
 import { BookingConfirmationComponent } from './booking-confirmation/booking-confirmation.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-// =======
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UpdateDialogComponent } from './dialogs/update-flight-dialog/update-dialog.component';
@@ -45,7 +43,6 @@ import { BookingsComponent } from './pages/admin/bookings/bookings.component';
 import { AirportsComponent } from './pages/admin/airports/airports.component';
 import { UpdateAirportDialogComponent } from './dialogs/update-airport-dialog/update-airport-dialog.component';
 import { AddAirportDialogComponent } from './dialogs/add-airport-dialog/add-airport-dialog.component';
->>>>>>> main
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +75,7 @@ import { AddAirportDialogComponent } from './dialogs/add-airport-dialog/add-airp
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatProgressSpinner
+    MatProgressSpinner,
     MatSnackBarModule,
     MatNativeDateModule,
   ],

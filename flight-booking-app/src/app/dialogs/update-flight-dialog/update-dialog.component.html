@@ -14,7 +14,7 @@
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Origin</mat-label>
       <mat-select formControlName="origin">
-        <mat-option *ngFor="let airport of airports" [value]="airport.city">
+        <mat-option *ngFor="let airport of airports" [value]="airport">
           {{ airport.city }}, {{ airport.country }}, {{ airport.name }}
         </mat-option>
       </mat-select>
@@ -25,8 +25,8 @@
       <mat-select formControlName="destination">
         <mat-option
           *ngFor="let airport of airports"
-          [value]="airport.city"
-          [disabled]="airport.city === flightForm.get('origin')?.value"
+          [value]="airport"
+          [disabled]="airport === flightForm.get('origin')?.value"
         >
           {{ airport.city }}, {{ airport.country }}, {{ airport.name }}
         </mat-option>

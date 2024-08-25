@@ -1,5 +1,4 @@
 <section id="bodyContainer">
-  <!-- Flight Search Form Starts -->
   <div class="columns">
     <aside class="column is-one-quarter">
       <form name="searchFlight" class="box">
@@ -29,8 +28,8 @@
             <div class="select">
               <select name="fromAirport" [(ngModel)]="fromAirport">
                 <option value="">Select airport</option>
-                <option *ngFor="let item of airports" [value]="item.airport_id">
-                  {{ item.name }}, {{ item.city }}
+                <option *ngFor="let airport of airports" [ngValue]="airport">
+                  {{ airport.name }}, {{ airport.city }},{{ airport.country }}
                 </option>
               </select>
             </div>
@@ -42,8 +41,8 @@
             <div class="select">
               <select name="toAirport" [(ngModel)]="toAirport">
                 <option value="">Select airport</option>
-                <option *ngFor="let item of airports" [value]="item.airport_id">
-                  {{ item.name }}, {{ item.city }}
+                <option *ngFor="let airport of airports" [ngValue]="airport">
+                  {{ airport.name }}, {{ airport.city }},{{ airport.country }}
                 </option>
               </select>
             </div>
@@ -64,30 +63,6 @@
         </div>
         <div class="field">
           <div class="control">
-            <input
-              class="input"
-              type="date"
-              name="travelDate"
-              placeholder="Return Date"
-              id="dateOfReturn"
-              [(ngModel)]="travelDate"
-            />
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <input
-              class="input"
-              type="number"
-              id="noOfTravelers"
-              min="1"
-              max="8"
-              placeholder="Number of Travelers"
-            />
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
             <button
               class="button is-primary"
               type="button"
@@ -96,69 +71,19 @@
               Search
             </button>
           </div>
-
-        </form>
-      </aside>
-     
-      <div class="column">
-        <div *ngIf="isLoading" class="has-text-centered">
-          <mat-spinner></mat-spinner>
-        </div>
-        
-        <div *ngIf="!isLoading && flights.length === 0" >
-          Nema letova za izabrane filtere.
-        </div>
-        <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
-          <!-- <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-5">
-                <div class="headerStartingDate">
-                  <h4 class="title is-4">Oslo (OSL)</h4>
-                  <p class="subtitle is-6">2024-03-06</p>
-                </div>
-              </div>
-              <div class="column is-2 has-text-centered">
-                <i class="fas fa-long-arrow-alt-right" style="font-size: 2rem;"></i>
-
         </div>
       </form>
     </aside>
+
     <div class="column">
-      <div id="FlightResult">
-        <div class="box">
-          <div class="columns is-vcentered">
-            <div class="column is-5">
-              <div class="headerStartingDate">
-                <h4 class="title is-4">Oslo (OSL)</h4>
-                <p class="subtitle is-6">2024-03-06</p>
+      <div *ngIf="isLoading" class="has-text-centered">
+        <mat-spinner></mat-spinner>
+      </div>
 
-              </div>
-            </div>
-            <div class="column is-2 has-text-centered">
-              <i
-                class="fas fa-long-arrow-alt-right"
-                style="font-size: 2rem"
-              ></i>
-            </div>
-            <div class="column is-5 has-text-right">
-              <div class="headeReturnDate">
-                <h4 class="title is-4">Brussels (BRU)</h4>
-                <p class="subtitle is-6">2024-03-06</p>
-              </div>
-            </div>
-
-          </div> -->
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">Airline</div>
-              <div class="column is-2">Departure</div>
-              <div class="column is-2">Arrival</div>
-              <div class="column is-3">Fare</div>
-              <div class="column is-2"></div>
-            </div>
-
-          </div>
-        </div>
+      <div *ngIf="!isLoading && flights.length === 0">
+        Nema letova za izabrane filtere.
+      </div>
+      <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
         <div class="box">
           <div class="columns is-vcentered">
             <div class="column is-3">Airline</div>
@@ -166,7 +91,6 @@
             <div class="column is-2">Arrival</div>
             <div class="column is-3">Fare</div>
             <div class="column is-2"></div>
-
           </div>
         </div>
         <div *ngFor="let flight of flights" class="box">
@@ -196,146 +120,6 @@
             </div>
           </div>
         </div>
-
-        <!-- 
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/AF.png">
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>Air France</div>
-                    <div> AF-2345</div>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-2"> 08:30</div>
-              <div class="column is-2"> 10:45</div>
-              <div class="column is-3"> 120</div>
-              <div class="column is-2">
-                <button class="button is-danger">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/KL.png">
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>KLM</div>
-                    <div> KL-5678</div>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-2"> 12:00</div>
-              <div class="column is-2"> 14:20</div>
-              <div class="column is-3"> 150</div>
-              <div class="column is-2">
-                <button class="button is-danger">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/LH.png">
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>Lufthansa</div>
-                    <div> LH-9876</div>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-2"> 15:30</div>
-              <div class="column is-2"> 17:45</div>
-              <div class="column is-3"> 180</div>
-              <div class="column is-2">
-                <button class="button is-danger">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/BA.png">
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>British Airways</div>
-                    <div> BA-1234</div>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-2"> 18:30</div>
-              <div class="column is-2"> 20:45</div>
-              <div class="column is-3"> 200</div>
-              <div class="column is-2">
-                <button class="button is-danger">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/AY.png">
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>Finnair</div>
-                    <div> AY-3456</div>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-2"> 21:30</div>
-              <div class="column is-2"> 23:45</div>
-              <div class="column is-3"> 220</div>
-              <div class="column is-2">
-                <button class="button is-danger">Book Now</button>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="columns is-vcentered">
-              <div class="column is-3">
-                <div class="columns is-vcentered">
-                  <div class="column is-4">
-                    <figure class="image is-48x48">
-                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/OS.png">
-                    </figure>
-                  </div>
-                  <div class="column is-8">
-                    <div>Austrian Airlines</div>
-                    <div> OS-7890</div>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-2"> 06:00</div>
-              <div class="column is-2"> 08:15</div>
-              <div class="column is-3"> 240</div>
-              <div class="column is-2">
-                <button class="button is-danger">Book Now</button>
-              </div>
-            </div>
-          </div> -->
       </div>
     </div>
   </div>

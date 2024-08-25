@@ -21,8 +21,14 @@ export class UpdateDialogComponent {
     this.flightForm = new FormGroup({
       flight_id: new FormControl({ value: data.flight_id, disabled: true }),
       airline: new FormControl(data.airline, Validators.required),
-      origin: new FormControl(data.origin, Validators.required),
-      destination: new FormControl(data.destination, Validators.required),
+      origin: new FormControl(
+        this.extractAirport(data.origin),
+        Validators.required
+      ),
+      destination: new FormControl(
+        this.extractAirport(data.destination),
+        Validators.required
+      ),
       departure_date: new FormControl(
         this.datePipe.transform(data.departure_date, 'yyyy-MM-dd'),
         Validators.required
@@ -56,7 +62,19 @@ export class UpdateDialogComponent {
   loadAirports(): void {
     this.airportService.getAllAirports().subscribe((airports) => {
       this.airports = airports;
+
+      this.flightForm
+        .get('origin')
+        ?.setValue(this.extractAirport(this.data.origin));
+      this.flightForm
+        .get('destination')
+        ?.setValue(this.extractAirport(this.data.destination));
     });
+  }
+
+  extractAirport(airportString: string): any {
+    const [city, country, name] = airportString.split(',').map((s) => s.trim());
+    return this.airports.find((airport) => airport.name === name);
   }
 
   onDepartureDateChange(): void {
@@ -109,7 +127,20 @@ export class UpdateDialogComponent {
 
       const departureDate = new Date(departureDateTimeString);
       const arrivalDate = new Date(arrivalDateTimeString);
-
+      const originF =
+        formValues.origin.city +
+        ', ' +
+        formValues.origin.country +
+        ', ' +
+        formValues.origin.name;
+      const destinationF =
+        formValues.destination.city +
+        ', ' +
+        formValues.destination.country +
+        ', ' +
+        formValues.destination.name;
+      console.log(originF);
+      console.log(destinationF);
       if (departureDate >= arrivalDate) {
         this.flightForm.get('arrival_time')?.setErrors({ invalidTime: true });
         return;
@@ -119,6 +150,8 @@ export class UpdateDialogComponent {
         ...formValues,
         departure_date: departureDateTimeString,
         arrival_date: arrivalDateTimeString,
+        origin: originF,
+        destination: destinationF,
       };
 
       this.dialogRef.close(updatedFlight);
