@@ -44,10 +44,10 @@ export class SearchService {
     return `${airport.city}, ${airport.country}, ${airport.name}`;
   }
 
-  getAirportName(id: number): Observable<string> {
+  getAirportName(name: string): Observable<string> {
     return this.getAllAirport().pipe(
       map((airports) => {
-        const airport = airports.find((a) => a.airport_id === id);
+        const airport = airports.find((a) => a.name === name);
         return airport ? airport.name : 'Unknown Airport';
       })
     );

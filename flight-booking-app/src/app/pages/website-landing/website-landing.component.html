@@ -1,8 +1,10 @@
-<mat-toolbar color="primary" *ngIf="showNavbar">
+<mat-toolbar *ngIf="showNavbar" class="full_navbar">
   <span>Flight Booking App</span>
   <span class="spacer"></span>
-  <button mat-button routerLink="/home">Home</button>
-  <button mat-button routerLink="/flights">Flights</button>
-  <button mat-button routerLink="/login">Login</button>
+  <button mat-button routerLink="/home" style="color: #ecf0f1">Home</button>
+  <button mat-button routerLink="/my-bookings" style="color: #ecf0f1">
+    My bookings
+  </button>
+  <button mat-button routerLink="/logout" style="color: #ecf0f1">Logout</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

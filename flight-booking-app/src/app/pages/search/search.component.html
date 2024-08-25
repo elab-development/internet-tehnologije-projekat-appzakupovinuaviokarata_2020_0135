@@ -1,7 +1,9 @@
-<section id="bodyContainer">
-  <div class="columns">
-    <aside class="column is-one-quarter">
-      <form name="searchFlight" class="box">
+<div class="page">
+  <section id="bodyContainer">
+    <div class="columns">
+      <aside class="column is-one-quarter">
+        <form name="searchFlight" class="box form-container">
+          <!--
         <div class="field">
           <label class="radio">
             <input
@@ -23,104 +25,120 @@
             Round Trip
           </label>
         </div>
-        <div class="sourceDestination mb-3">
-          <div class="control">
-            <div class="select">
-              <select name="fromAirport" [(ngModel)]="fromAirport">
-                <option value="">Select airport</option>
-                <option *ngFor="let airport of airports" [ngValue]="airport">
-                  {{ airport.name }}, {{ airport.city }},{{ airport.country }}
-                </option>
-              </select>
-            </div>
-          </div>
-        </div>
+        -->
 
-        <div class="sourceDestination mb-3">
-          <div class="control">
-            <div class="select">
-              <select name="toAirport" [(ngModel)]="toAirport">
-                <option value="">Select airport</option>
-                <option *ngFor="let airport of airports" [ngValue]="airport">
-                  {{ airport.name }}, {{ airport.city }},{{ airport.country }}
-                </option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <input
-              class="input"
-              type="date"
-              name="travelDate"
-              placeholder="Travel Date"
-              id="travelDate"
-              [(ngModel)]="travelDate"
-            />
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <button
-              class="button is-primary"
-              type="button"
-              (click)="searchFlights()"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </form>
-    </aside>
-
-    <div class="column">
-      <div *ngIf="isLoading" class="has-text-centered">
-        <mat-spinner></mat-spinner>
-      </div>
-
-      <div *ngIf="!isLoading && flights.length === 0">
-        Nema letova za izabrane filtere.
-      </div>
-      <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
-        <div class="box">
-          <div class="columns is-vcentered">
-            <div class="column is-3">Airline</div>
-            <div class="column is-2">Departure</div>
-            <div class="column is-2">Arrival</div>
-            <div class="column is-3">Fare</div>
-            <div class="column is-2"></div>
-          </div>
-        </div>
-        <div *ngFor="let flight of flights" class="box">
-          <div class="columns is-vcentered">
-            <div class="column is-3">
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <figure class="image is-48x48">
-                    <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
-                  </figure>
-                </div>
-                <div class="column is-8">
-                  <div>{{ flight.airline }}</div>
-                </div>
+          <div class="sourceDestination mb-3 searchFormField">
+            <div class="control">
+              <div class="select">
+                <select
+                  name="fromAirport"
+                  class="searchFormField"
+                  [(ngModel)]="fromAirport"
+                >
+                  <option value="">Select airport</option>
+                  <option *ngFor="let airport of airports" [ngValue]="airport">
+                    {{ airport.name }}, {{ airport.city }},
+                    {{ airport.country }}
+                  </option>
+                </select>
               </div>
             </div>
-            <div class="column is-2">{{ flight.departure_date }}</div>
-            <div class="column is-2">{{ flight.arrival_date }}</div>
-            <div class="column is-3">{{ flight.capacity }}</div>
-            <div class="column is-2">
+          </div>
+
+          <div class="sourceDestination mb-3">
+            <div class="control">
+              <div class="select">
+                <select
+                  name="toAirport"
+                  class="searchFormField"
+                  [(ngModel)]="toAirport"
+                >
+                  <option value="">Select airport</option>
+                  <option *ngFor="let airport of airports" [ngValue]="airport">
+                    {{ airport.name }}, {{ airport.city }},
+                    {{ airport.country }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field searchFormField">
+            <div class="control">
+              <input
+                class="input searchFormField"
+                type="date"
+                name="travelDate"
+                placeholder="Travel Date"
+                id="travelDate"
+                [(ngModel)]="travelDate"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
               <button
-                class="button is-danger"
-                (click)="bookFlight(flight.flight_id)"
+                class="button is-primary"
+                type="button"
+                (click)="searchFlights()"
               >
-                Book Now
+                Search
               </button>
             </div>
           </div>
+        </form>
+      </aside>
+
+      <div class="column">
+        <div *ngIf="isLoading" class="has-text-centered">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <div *ngIf="!isLoading && flights.length === 0" class="container-text">
+          Nema letova za izabrane filtere.
+        </div>
+
+        <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
+          <!-- Table Header -->
+          <div class="box">
+            <div class="row header">
+              <div class="cell">Airline</div>
+              <div class="cell">Departure</div>
+              <div class="cell">Arrival</div>
+              <div class="cell">Tickets Left</div>
+              <div class="cell">Fare</div>
+              <div class="cell"></div>
+            </div>
+          </div>
+
+          <!-- Flight Results -->
+          <ng-container *ngFor="let flight of flights">
+            <div class="box">
+              <div class="row">
+                <div class="cell">
+                  <!-- <figure class="image is-48x48"> -->
+                  <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
+                  <!-- </figure> -->
+                  <span>{{ flight.airline }}</span>
+                </div>
+                <div class="cell">{{ flight.departure_date }}</div>
+                <div class="cell">{{ flight.arrival_date }}</div>
+                <div class="cell">{{ flight.capacity }}</div>
+                <div class="cell">{{ flight.price | currency }}</div>
+                <div class="cell">
+                  <button
+                    class="button is-danger"
+                    (click)="bookFlight(flight.flight_id)"
+                  >
+                    Book Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
