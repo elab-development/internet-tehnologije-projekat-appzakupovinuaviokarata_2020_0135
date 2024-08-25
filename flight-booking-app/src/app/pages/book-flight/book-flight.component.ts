@@ -18,6 +18,7 @@ export class BookFlightComponent implements OnInit {
   flight: any;
   originAirportName: string = '';
   destinationAirportName: string = '';
+  flightDuration: string = ''; // Dodaj ovu promenljivu
   isLoading = false;
 
   constructor(
@@ -29,33 +30,34 @@ export class BookFlightComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
-    this.isLoading=true;
+    this.isLoading = true;
     const flightId = this.route.snapshot.params['id'];
-    this.flightService.getFlightById(flightId).subscribe(flight => {
+    this.flightService.getFlightById(flightId).subscribe((flight) => {
       this.flight = flight;
       this.flightId = flight.flight_id;
+      this.originAirportName = flight.origin.split(',')[2];
+      this.destinationAirportName = flight.destination.split(',')[2];
 
-      // Get airport names
-      this.searchService.getAirportName(+flight.origin).subscribe(name => {
-        this.originAirportName = name;
-      });
-      this.searchService.getAirportName(+flight.destination).subscribe(name => {
-        this.destinationAirportName = name;
-        this.isLoading=false;
+      // Izračunavanje vremena leta
+      const departureDate = new Date(flight.departure_date);
+      const arrivalDate = new Date(flight.arrival_date);
+      const durationInMilliseconds =
+        arrivalDate.getTime() - departureDate.getTime();
 
-      });
+      const hours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+      const minutes = Math.floor(
+        (durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+      );
+
+      this.flightDuration = `${hours}h ${minutes}m`;
+
+      this.isLoading = false;
     });
   }
 
-  // getFlightDetails(flightId: number) {
-  //   this.flightService.getFlightById(flightId).subscribe((data) => {
-  //     this.flight = data;
-  //   });
-  // }
   confirmBooking() {
     const userId = this.authService.getUserId();
     if (userId === null) {
@@ -68,17 +70,14 @@ export class BookFlightComponent implements OnInit {
       return;
     }
 
-    this.bookingService.confirmBooking(userId, this.flightId).subscribe(response => {
-      console.log('Booking confirmed:', response);
-      // Prikazivanje obaveštenja
-      this.dialog.open(BookingConfirmationComponent);
-      // Preusmeravanje na my-bookings stranicu
-      this.router.navigate(['/my-bookings']);
-  }, error => {
-      console.error('Error confirming booking:', error);
-  });
+    this.bookingService
+      .confirmBooking(userId, this.flightId)
+      .subscribe((response) => {
+        console.log('Booking confirmed:', response);
+        // Prikazivanje obaveštenja
+        this.dialog.open(BookingConfirmationComponent);
+        // Preusmeravanje na my-bookings stranicu
+        this.router.navigate(['/my-bookings']);
+      });
   }
-
-
-
 }
