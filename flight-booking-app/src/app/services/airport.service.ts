@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AirportService {
-  private apiUrl = 'http://localhost:8000/api/airports';
+  private apiUrl = 'http://127.0.0.1:8000/api/airports';
 
   constructor(private http: HttpClient) {}
 

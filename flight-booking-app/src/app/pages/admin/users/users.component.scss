@@ -1,36 +1,39 @@
 .users-page {
     display: flex;
   }
-  
+
   .sidebar-container {
-    width: 250px; 
+    width: 250px;
     background-color: #2c3e50;    //#34495e
     min-height: 100vh;
   }
-  
+
   .page {
-    width: 100%; 
-    padding: 20px; 
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
-  
+
   .users-table {
     border-collapse: separate;
     border-spacing: 0 10px;
-    background-color: #2c3e50; 
+    background-color: #2c3e50;
     border-radius: 12px;
     overflow: hidden;
   }
-  
+
   .mat-mdc-cell {
     color: #ecf0f1;
   }
-  
+
   .search-container {
     margin: 20px 0 40px;
     display: flex;
     justify-content: flex-start;
   }
-  
+
   .search-container input {
     width: 300px;
     padding: 10px;
@@ -40,7 +43,7 @@
     color: #ecf0f1;
   }
   .search-container input::placeholder {
-    color: #ecf0f1; 
+    color: #ecf0f1;
   }
 
   .search-container .add-btn {
@@ -48,12 +51,12 @@
     color: #ecf0f1;
     transition: background-color 0.3s, color 0.3s;
   }
-  
+
   .search-container .add-btn:hover {
     background-color: #34495e;
     color: #ffffff;
   }
-  
+
   .column-text {
     vertical-align: middle;
     font-size: medium;
@@ -62,7 +65,7 @@
   .header{
     font-size: medium;
   }
-  
+
   button[mat-raised-button] {
     margin: 10px 20px;
     padding: 10px 20px;
@@ -74,14 +77,24 @@
     background-color: #ecf0f1; /* Light gray */
   }
 
-  
+mat-paginator {
+  background-color: #2c3e50;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px;
+}
+.paginator-container {
+  margin-top: auto;
+  bottom: 0;
+}
+
 //   .pagination {
 //     display: flex;
 //     justify-content: center;
 //     align-items: center;
 //     margin-top: 20px;
 //   }
-  
+
 //   .pagination button {
 //     margin: 0 10px;
 //   }

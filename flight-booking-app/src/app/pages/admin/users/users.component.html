@@ -20,9 +20,9 @@
       </button>
     </div>
 
-    <table
+    <mat-table
       mat-table
-      [dataSource]="filteredUsers"
+      [dataSource]="dataSource"
       class="users-table mat-elevation-z8"
     >
       <ng-container
@@ -69,6 +69,10 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns.concat('actions')"
       ></tr>
-    </table>
+    </mat-table>
+
+    <div class="paginator-container">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
 </div>
