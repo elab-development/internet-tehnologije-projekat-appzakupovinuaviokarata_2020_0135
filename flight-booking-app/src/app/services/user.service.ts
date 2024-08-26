@@ -32,4 +32,15 @@ export class UserService {
     const url = `${this.baseUrl}/${userId}`;
     return this.http.delete(url);
   }
+
+  checkUserName(username: string) {
+    return this.http.get<{ exists: boolean }>(
+      `${this.baseUrl}/check-username/${username}`
+    );
+  }
+  checkEmail(email: string) {
+    return this.http.get<{ exists: boolean }>(
+      `${this.baseUrl}/check-email/${email}`
+    );
+  }
 }

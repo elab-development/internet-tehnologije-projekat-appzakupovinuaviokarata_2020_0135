@@ -36,12 +36,16 @@ export class AddAirportDialogComponent {
         city: this.airportForm.value.city,
         country: this.airportForm.value.country,
       };
-      if (this.existingAirportNames.includes(formData.name)) {
-        this.airportForm.get('name')?.setErrors({ nameExists: true });
-        this.airportForm.get('name')?.markAsTouched();
-        return;
-      }
-      this.dialogRef.close(formData);
+      this.airportService
+        .checkAirportName(formData.name)
+        .subscribe((response) => {
+          if (response.exists) {
+            this.airportForm.get('name')?.setErrors({ nameExists: true });
+            this.airportForm.get('name')?.markAsTouched();
+            return;
+          }
+          this.dialogRef.close(formData);
+        });
     }
   }
 }

@@ -72,8 +72,6 @@ export class AddFlightDialogComponent {
         formValues.destination.country +
         ', ' +
         formValues.destination.name;
-      console.log(originF);
-      console.log(destinationF);
 
       if (departureDate >= arrivalDate) {
         this.flightForm.get('arrival_time')?.setErrors({ invalidTime: true });

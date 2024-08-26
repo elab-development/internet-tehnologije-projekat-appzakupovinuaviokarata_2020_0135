@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -12,6 +13,7 @@ export class AddUserDialogComponent {
   userForm: FormGroup;
   existingUsernames: string[] = [];
   existingEmails: string[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<AddUserDialogComponent>,
     private userService: UserService
@@ -50,6 +52,7 @@ export class AddUserDialogComponent {
         this.userForm.get('confirmPassword')?.markAsTouched();
         return;
       }
+
       const formData = {
         username: this.userForm.value.username,
         email: this.userForm.value.email,
@@ -57,17 +60,25 @@ export class AddUserDialogComponent {
         password_confirmation: this.userForm.value.confirmPassword,
         role: this.userForm.value.role,
       };
-      if (this.existingUsernames.includes(formData.username)) {
-        this.userForm.get('username')?.setErrors({ usernameExists: true });
-        this.userForm.get('username')?.markAsTouched();
-        return;
-      }
-      if (this.existingEmails.includes(formData.email)) {
-        this.userForm.get('email')?.setErrors({ email: true });
-        this.userForm.get('email')?.markAsTouched();
-        return;
-      }
-      this.dialogRef.close(formData);
+
+      const checkEmail$ = this.userService.checkEmail(formData.email);
+      const checkUsername$ = this.userService.checkUserName(formData.username);
+
+      forkJoin([checkEmail$, checkUsername$]).subscribe(
+        ([emailResponse, usernameResponse]) => {
+          if (emailResponse.exists) {
+            this.userForm.get('email')?.setErrors({ emailExists: true });
+            this.userForm.get('email')?.markAsTouched();
+          }
+          if (usernameResponse.exists) {
+            this.userForm.get('username')?.setErrors({ usernameExists: true });
+            this.userForm.get('username')?.markAsTouched();
+          }
+          if (!emailResponse.exists && !usernameResponse.exists) {
+            this.dialogRef.close(formData);
+          }
+        }
+      );
     }
   }
 }

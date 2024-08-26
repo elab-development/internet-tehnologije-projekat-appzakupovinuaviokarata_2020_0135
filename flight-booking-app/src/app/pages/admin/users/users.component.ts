@@ -63,10 +63,21 @@ export class UsersComponent implements OnInit {
   }
 
   onDelete(user: any): void {
-    if (confirm('Are you sure you want to delete this flight?')) {
-      this.userService
-        .deleteUser(user.user_id)
-        .subscribe(() => this.loadUsers());
+    if (
+      confirm(`Are you sure you want to delete the user "${user.username}"?`)
+    ) {
+      this.userService.checkUserName(user.username).subscribe((response) => {
+        if (response.exists) {
+          this.userService.deleteUser(user.user_id).subscribe(() => {
+            this.loadUsers();
+          });
+        } else {
+          alert(
+            `The user "${user.username}" no longer exists in the database.`
+          );
+          this.loadUsers();
+        }
+      });
     }
   }
 }

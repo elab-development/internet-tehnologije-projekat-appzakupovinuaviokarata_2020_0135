@@ -25,4 +25,10 @@ export class AirportService {
   deleteAirport(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  checkAirportName(name: string): Observable<{ exists: boolean }> {
+    return this.http.get<{ exists: boolean }>(
+      `${this.apiUrl}/check-name/${name}`
+    );
+  }
 }

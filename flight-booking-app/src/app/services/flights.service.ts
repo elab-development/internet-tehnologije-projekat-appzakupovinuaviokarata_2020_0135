@@ -32,4 +32,10 @@ export class FlightsService {
     const url = `${this.baseUrl}/${flightId}`;
     return this.http.delete(url);
   }
+
+  checkFlight(id: number): Observable<{ exists: boolean }> {
+    return this.http.get<{ exists: boolean }>(
+      `${this.baseUrl}/check-flight/${id}`
+    );
+  }
 }

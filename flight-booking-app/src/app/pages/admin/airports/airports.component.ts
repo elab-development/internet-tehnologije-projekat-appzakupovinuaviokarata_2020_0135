@@ -77,9 +77,22 @@ export class AirportsComponent implements OnInit {
     if (
       confirm(`Are you sure you want to delete the airport "${airport.name}"?`)
     ) {
-      this.airportService.deleteAirport(airport.airport_id).subscribe(() => {
-        this.getAirports();
-      });
+      this.airportService
+        .checkAirportName(airport.name)
+        .subscribe((response) => {
+          if (response.exists) {
+            this.airportService
+              .deleteAirport(airport.airport_id)
+              .subscribe(() => {
+                this.getAirports();
+              });
+          } else {
+            alert(
+              `The airport "${airport.name}" no longer exists in the database.`
+            );
+            this.getAirports();
+          }
+        });
     }
   }
 }

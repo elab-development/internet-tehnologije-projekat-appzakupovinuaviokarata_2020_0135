@@ -22,10 +22,7 @@ export class BookingsComponent implements OnInit {
     'actions',
   ];
 
-  constructor(
-    private bookingService: BookingService,
-    private userService: UserService
-  ) {}
+  constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
     this.loadBookings();
@@ -56,11 +53,18 @@ export class BookingsComponent implements OnInit {
     );
   }
 
-  onDelete(booking: number): void {
+  onDelete(booking_id: number): void {
     if (confirm('Are you sure you want to delete this booking?')) {
-      this.bookingService
-        .deleteBooking(booking)
-        .subscribe(() => this.loadBookings());
+      this.bookingService.checkBooking(booking_id).subscribe((response) => {
+        if (response.exists) {
+          this.bookingService.deleteBooking(booking_id).subscribe(() => {
+            this.loadBookings();
+          });
+        } else {
+          alert('Booking does not exist.');
+          this.loadBookings();
+        }
+      });
     }
   }
 }

@@ -42,4 +42,10 @@ export class BookingService {
     };
     return this.http.post(`${this.baseUrl}`, bookingData);
   }
+
+  checkBooking(id: number): Observable<{ exists: boolean }> {
+    return this.http.get<{ exists: boolean }>(
+      `${this.baseUrl}/check-booking/${id}`
+    );
+  }
 }

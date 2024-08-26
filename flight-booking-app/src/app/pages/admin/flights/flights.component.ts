@@ -77,11 +77,18 @@ export class FlightsComponent implements OnInit {
   }
 
   onDelete(flight: any): void {
-    console.log(flight);
     if (confirm('Are you sure you want to delete this flight?')) {
       this.flightsService
-        .deleteFlight(flight.flight_id)
-        .subscribe(() => this.fetchFlights());
+        .checkFlight(flight.flight_id)
+        .subscribe((response) => {
+          if (response.exists) {
+            this.flightsService.deleteFlight(flight.flight_id).subscribe(() => {
+              this.fetchFlights();
+            });
+          } else {
+            this.fetchFlights();
+          }
+        });
     }
   }
 }
