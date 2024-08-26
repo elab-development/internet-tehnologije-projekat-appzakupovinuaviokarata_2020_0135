@@ -92,4 +92,11 @@ class BookingController extends Controller
     {
         $this->middleware('auth:sanctum');
     }
+
+    public function checkBooking($id)
+    {
+        $exists = Booking::where('booking_id', $id)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
 }

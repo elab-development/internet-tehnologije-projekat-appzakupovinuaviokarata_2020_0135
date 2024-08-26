@@ -58,6 +58,11 @@ class AirportController extends Controller
 
         return response()->json(null, 204);
     }
-    
 
+    public function checkName($name)
+    {
+        $exists = Airport::where('name', $name)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
 }

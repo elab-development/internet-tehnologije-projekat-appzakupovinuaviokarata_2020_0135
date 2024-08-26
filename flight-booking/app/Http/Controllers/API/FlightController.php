@@ -105,4 +105,11 @@ class FlightController extends Controller
 
         return response()->json(['message' => 'Flight deleted successfully'], 200);
     }
+
+    public function checkFlight($id)
+    {
+        $exists = Flight::where('flight_id', $id)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
 }
