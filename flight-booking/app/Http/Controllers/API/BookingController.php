@@ -78,7 +78,7 @@ class BookingController extends Controller
 
     public function destroy($booking_id)
     {
-        $booking = Booking::where('user_id', Auth::id())->findOrFail($booking_id);
+        $booking = Booking::findOrFail($booking_id);
 
         $flight = $booking->flight;
         $flight->increment('capacity', 1);

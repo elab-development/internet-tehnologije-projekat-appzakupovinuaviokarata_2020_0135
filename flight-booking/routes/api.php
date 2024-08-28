@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/flights/{flight_id}', [FlightController::class, 'update']);
     Route::delete('/flights/{flight_id}', [FlightController::class, 'destroy']);
     Route::get('/flights/check-flight/{id}', [FlightController::class, 'checkFlight']);
+    Route::get('/flights/{flight_id}/capacity', [FlightController::class, 'getFlightCapacity']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -36,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/bookings/{booking_id}', [BookingController::class, 'update']);
     Route::delete('/bookings/{booking_id}', [BookingController::class, 'destroy']);
     Route::get('/bookings/check-booking/{id}', [BookingController::class, 'checkBooking']);
+    Route::put('/flights/{flight_id}/capacity', [FlightController::class, 'updateCapacity']);
 });
 
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {

@@ -112,4 +112,13 @@ class FlightController extends Controller
 
         return response()->json(['exists' => $exists]);
     }
+    public function getFlightCapacity($flight_id)
+    {
+        $flight = Flight::find($flight_id);
+
+        if (!$flight) {
+            return response()->json(['message' => 'Flight not found'], 404);
+        }
+        return response()->json(['capacity' => $flight->capacity], 200);
+    }
 }
