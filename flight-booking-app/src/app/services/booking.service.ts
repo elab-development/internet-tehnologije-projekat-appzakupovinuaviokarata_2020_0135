@@ -27,18 +27,21 @@ export class BookingService {
     return this.http.post<any>(this.baseUrl, booking);
   }
 
-  updateBooking(id: number, booking: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${id}`, booking);
+  updateBooking(id: number): Observable<any> {
+    const bookingData = {
+      status: 'confirmed',
+    };
+    return this.http.put<any>(`${this.baseUrl}/${id}`, bookingData);
   }
 
   deleteBooking(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
 
-  confirmBooking(userId: number, flightId: number): Observable<any> {
+  makeReservation(userId: number, flightId: number): Observable<any> {
     const bookingData = {
       flight_id: flightId,
-      status: 'confirmed',
+      status: 'reserved',
     };
     return this.http.post(`${this.baseUrl}`, bookingData);
   }

@@ -38,4 +38,8 @@ export class FlightsService {
       `${this.baseUrl}/check-flight/${id}`
     );
   }
+  getFlightCapacity(flightId: number): Observable<{ capacity: number }> {
+    const url = `${this.baseUrl}/${flightId}/capacity`;
+    return this.http.get<{ capacity: number }>(url);
+  }
 }

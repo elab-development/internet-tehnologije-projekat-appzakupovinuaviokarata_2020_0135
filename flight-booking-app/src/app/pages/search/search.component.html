@@ -100,7 +100,6 @@
         </div>
 
         <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
-          <!-- Table Header -->
           <div class="box">
             <div class="row header">
               <div class="cell">Airline</div>
@@ -112,7 +111,6 @@
             </div>
           </div>
 
-          <!-- Flight Results -->
           <ng-container *ngFor="let flight of flights">
             <div class="box">
               <div class="row">

@@ -12,6 +12,7 @@ export class MyBookingsComponent implements OnInit {
   constructor(private bookingService: BookingService) {}
 
   ngOnInit() {
+    sessionStorage.setItem('isRefreshed', 'false');
     this.loadBookings();
   }
 

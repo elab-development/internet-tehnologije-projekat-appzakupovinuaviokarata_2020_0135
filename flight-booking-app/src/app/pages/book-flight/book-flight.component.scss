@@ -50,3 +50,18 @@ button.button {
 .has-text-centered {
   text-align: center;
 }
+.button.is-danger {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: #fff;
+  &:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+  }
+}
+
+button.is-danger:hover {
+  background-color: #ff2b56;
+  border-color: #ff2b56;
+  color: #fff;
+}
