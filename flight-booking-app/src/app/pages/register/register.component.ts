@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +17,13 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  email: string;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   get usernameFormControl() {
@@ -50,9 +54,28 @@ export class RegisterComponent implements OnInit {
         ...this.registerForm.value,
         role: 'user',
       };
-      this.authService.register(userData).subscribe((res) => {
-        console.log(res);
-        this.router.navigate(['/login']);
+
+      forkJoin({
+        usernameExists: this.userService.checkUserName(userData.username),
+        emailExists: this.userService.checkEmail(userData.email),
+      }).subscribe((results) => {
+        const usernameExists = results.usernameExists.exists;
+        const emailExists = results.emailExists.exists;
+
+        if (usernameExists) {
+          this.usernameFormControl.setErrors({ usernameExists: true });
+        }
+
+        if (emailExists) {
+          this.emailFormControl.setErrors({ emailExists: true });
+        }
+
+        if (!usernameExists && !emailExists) {
+          this.authService.register(userData).subscribe((res) => {
+            console.log(res);
+            this.router.navigate(['/login']);
+          });
+        }
       });
     }
   }

@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertDialogComponent } from '../alert/alert.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,14 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  loginError: string;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userService: UserService
   ) {}
 
   get emailFormControl() {
@@ -41,10 +44,17 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe((res) => {
-        localStorage.setItem('auth_token', res.access_token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-        this.redirectUser(res.user.role);
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (res) => {
+          localStorage.setItem('auth_token', res.access_token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+          this.redirectUser(res.user.role);
+        },
+        error: (err) => {
+          this.loginError = 'Invalid email or password';
+          this.emailFormControl.setErrors({ invalid: true });
+          this.passwordFormControl.setErrors({ invalid: true });
+        },
       });
     }
   }
@@ -54,5 +64,10 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigate(['/search']);
     }
+  }
+  resetField(field: FormControl) {
+    field.setValue('');
+    field.setErrors(null);
+    this.loginError = '';
   }
 }
