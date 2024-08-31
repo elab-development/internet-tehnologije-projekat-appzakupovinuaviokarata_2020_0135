@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/bookings', [BookingController::class, 'index']);
     Route::get('/bookingsall', [BookingController::class, 'allData']);
+    Route::get('/bookingsall/{userId}', [BookingController::class, 'allDataUser']);
     Route::get('/bookings/{booking_id}', [BookingController::class, 'show']);
     Route::post('/bookings', [BookingController::class, 'store']);
     Route::put('/bookings/{booking_id}', [BookingController::class, 'update']);
@@ -46,8 +47,6 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/users', [UserController::class, 'store']);
     Route::put('/users/{user_id}', [UserController::class, 'update']);
     Route::delete('/users/{user_id}', [UserController::class, 'destroy']);
-    Route::get('users/check-username/{username}', [UserController::class, 'checkUsername']);
-    Route::get('users/check-email/{email}', [UserController::class, 'checkEmail']);
 });
 
 
@@ -66,8 +65,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 //proveri
 Route::get('/users', [UserController::class, 'index']);
+Route::get('users/check-username/{username}', [UserController::class, 'checkUsername']);
+Route::get('users/check-email/{email}', [UserController::class, 'checkEmail']);
+
 Route::post('/register', [AuthController::class, 'register']);
+
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::options('{any}', function () {

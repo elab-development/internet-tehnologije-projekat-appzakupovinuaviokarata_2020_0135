@@ -22,7 +22,13 @@ class BookingController extends Controller
         $bookings = Booking::with(['user', 'flight'])->get();
         return response()->json($bookings);
     }
-
+    public function allDataUser($userId)
+    {
+        $bookings = Booking::with(['user', 'flight'])
+            ->where('user_id', $userId)
+            ->get();
+        return response()->json($bookings);
+    }
     public function show($booking_id)
     {
         $booking = Booking::where('user_id', Auth::id())->findOrFail($booking_id);
