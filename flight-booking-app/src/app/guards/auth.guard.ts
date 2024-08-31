@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from '../pages/alert/alert.component';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +24,13 @@ export class AuthGuard implements CanActivate {
     if (token && role === 'admin') {
       return true;
     } else {
-      this.logout();
-      return false;
+      if (token) {
+        this.logout();
+        return false;
+      } else {
+        this.router.navigate(['/login']);
+        return false;
+      }
     }
   }
 
@@ -36,9 +40,5 @@ export class AuthGuard implements CanActivate {
       localStorage.removeItem('user');
       this.router.navigate(['/login']);
     });
-  }
-
-  showAlert(): void {
-    this.dialog.open(AlertDialogComponent);
   }
 }

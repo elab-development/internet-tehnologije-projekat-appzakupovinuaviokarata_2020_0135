@@ -1,66 +1,31 @@
 <div class="page">
   <section id="bodyContainer">
     <div class="columns">
-      <aside class="column is-one-quarter">
+      <aside class="column is-one-quarter enter-form">
         <form name="searchFlight" class="box form-container">
-          <!--
-        <div class="field">
-          <label class="radio">
-            <input
-              type="radio"
-              id="radioOneWay"
-              name="trip"
-              value="One Way"
-              checked
-            />
-            One Way
-          </label>
-          <label class="radio">
-            <input
-              type="radio"
-              id="radioRoundTrip"
-              name="trip"
-              value="Round Trip"
-            />
-            Round Trip
-          </label>
-        </div>
-        -->
-
-          <div class="sourceDestination mb-3 searchFormField">
-            <div class="control">
-              <div class="select">
-                <select
-                  name="fromAirport"
-                  class="searchFormField"
-                  [(ngModel)]="fromAirport"
-                >
-                  <option value="">Select airport</option>
-                  <option *ngFor="let airport of airports" [ngValue]="airport">
-                    {{ airport.name }}, {{ airport.city }},
-                    {{ airport.country }}
-                  </option>
-                </select>
-              </div>
-            </div>
+          <div class="sourceDestination mb-3">
+            <select
+              name="fromAirport"
+              class="searchFormField"
+              [(ngModel)]="fromAirport"
+            >
+              Select Airport
+              <option *ngFor="let airport of airports" [ngValue]="airport">
+                {{ airport.name }}, {{ airport.city }}, {{ airport.country }}
+              </option>
+            </select>
           </div>
 
           <div class="sourceDestination mb-3">
-            <div class="control">
-              <div class="select">
-                <select
-                  name="toAirport"
-                  class="searchFormField"
-                  [(ngModel)]="toAirport"
-                >
-                  <option value="">Select airport</option>
-                  <option *ngFor="let airport of airports" [ngValue]="airport">
-                    {{ airport.name }}, {{ airport.city }},
-                    {{ airport.country }}
-                  </option>
-                </select>
-              </div>
-            </div>
+            <select
+              name="toAirport"
+              class="searchFormField"
+              [(ngModel)]="toAirport"
+            >
+              <option *ngFor="let airport of airports" [ngValue]="airport">
+                {{ airport.name }}, {{ airport.city }}, {{ airport.country }}
+              </option>
+            </select>
           </div>
 
           <div class="field searchFormField">
@@ -72,6 +37,7 @@
                 placeholder="Travel Date"
                 id="travelDate"
                 [(ngModel)]="travelDate"
+                [min]="minDate"
               />
             </div>
           </div>
@@ -79,8 +45,8 @@
           <div class="field">
             <div class="control">
               <button
-                class="button is-primary"
-                type="button"
+                class="button is-success is-rounded"
+                type="button "
                 (click)="searchFlights()"
               >
                 Search
@@ -91,7 +57,7 @@
       </aside>
 
       <div class="column">
-        <div *ngIf="isLoading" class="has-text-centered">
+        <div *ngIf="isLoading" class="has-text-centered loading">
           <mat-spinner></mat-spinner>
         </div>
 
@@ -126,7 +92,7 @@
                 <div class="cell">{{ flight.price | currency }}</div>
                 <div class="cell">
                   <button
-                    class="button is-danger"
+                    class="button is-success is-rounded"
                     (click)="bookFlight(flight.flight_id)"
                   >
                     Book Now

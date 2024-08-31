@@ -5,6 +5,7 @@ import { Airport } from '../../models/airport';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { FlightsService } from '../../services/flights.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -19,20 +20,32 @@ export class SearchComponent {
   flights: Flight[] = [];
   airports: Airport[] = [];
   isLoading = false;
+  minDate: string;
 
   constructor(
     private searchService: SearchService,
     private router: Router,
-    private flightsService: FlightsService
+    private flightsService: FlightsService,
+    private datePipe: DatePipe
   ) {}
+
   ngOnInit() {
     sessionStorage.setItem('isRefreshed', 'false');
     this.loadAirports();
+    this.setMinDate();
   }
+
   loadAirports() {
     this.searchService.getAllAirport().subscribe((res: Airport[]) => {
       this.airports = res;
     });
+  }
+
+  setMinDate() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.minDate = this.datePipe.transform(tomorrow, 'yyyy-MM-dd')!;
   }
 
   searchFlights() {

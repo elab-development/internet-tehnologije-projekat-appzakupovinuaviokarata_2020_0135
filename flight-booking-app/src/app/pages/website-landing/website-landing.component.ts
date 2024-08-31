@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-website-landing',
@@ -9,7 +10,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class WebsiteLandingComponent {
   showNavbar: boolean = true;
   disableButtons: boolean = false;
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(() => {
       this.updateNavbarVisibility();
     });
@@ -38,5 +39,17 @@ export class WebsiteLandingComponent {
     ];
 
     this.showNavbar = !hiddenNavbarUrls.includes(currentUrl);
+  }
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Logout failed', err);
+      },
+    });
   }
 }

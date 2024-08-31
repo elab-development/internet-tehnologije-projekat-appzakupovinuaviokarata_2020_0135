@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-booking-confirmation',
   templateUrl: './booking-confirmation.component.html',
-  styleUrls: ['./booking-confirmation.component.scss']
+  styleUrls: ['./booking-confirmation.component.scss'],
 })
 export class BookingConfirmationComponent {
   showConfirmation = true;
@@ -12,12 +12,12 @@ export class BookingConfirmationComponent {
   constructor(private router: Router) {}
 
   goToSearch() {
-    this.showConfirmation = false; // Sakrij komponentu
-    this.router.navigate(['/search']); // Preusmeri na Search stranicu
+    this.showConfirmation = false;
+    this.router.navigate(['/search']);
   }
 
   goToMyBookings() {
-    this.showConfirmation = false; // Sakrij komponentu
-    this.router.navigate(['/my-bookings']); // Preusmeri na My Bookings stranicu
+    this.showConfirmation = false;
+    this.router.navigate(['/my-bookings']);
   }
 }

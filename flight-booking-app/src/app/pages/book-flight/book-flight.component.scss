@@ -65,3 +65,9 @@ button.is-danger:hover {
   border-color: #ff2b56;
   color: #fff;
 }
+
+.has-text-centered {
+  display: flex;
+  justify-content: center;  // Centriranje horizontalno
+  align-items: center;      // Centriranje vertikalno
+}

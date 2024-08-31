@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { AlertDialogComponent } from '../alert/alert.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 

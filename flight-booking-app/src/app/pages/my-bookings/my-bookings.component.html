@@ -1,10 +1,50 @@
 <div class="container">
-  <h1 class="title">My Bookings</h1>
-  <div *ngFor="let booking of bookings" class="box">
-    <h3 class="title is-4">Booking ID: {{ booking.booking_id }}</h3>
-    <p>Flight ID: {{ booking.flight_id }}</p>
-    <p>Status: {{ booking.status }}</p>
-    <p>Booking Date: {{ booking.booking_date | date }}</p>
-    <p>Airline: {{ booking.flight?.airline }}</p>
+  <div class="header">
+    <h1 class="title">My Bookings</h1>
+    <input
+      type="text"
+      class="search-bar"
+      [(ngModel)]="searchTerm"
+      placeholder="Search bookings..."
+    />
+  </div>
+  <div *ngIf="filteredBookings().length === 0" class="no-bookings">
+    You don't have any bookings.
+  </div>
+  <div *ngFor="let booking of filteredBookings()" class="booking-box">
+    <div class="booking-info">
+      <h3 class="booking-title">
+        {{ booking.flight?.origin }}
+        <i class="fas fa-long-arrow-alt-right arrow-icon"></i>
+        {{ booking.flight?.destination }}
+      </h3>
+      <p class="booking-detail">
+        {{ booking.flight?.departure_date | date : "dd-MM-yyyy HH:mm" }}
+        <i class="fas fa-plane-departure flight-icon"></i>
+        {{ booking.flight?.arrival_date | date : "dd-MM-yyyy HH:mm" }}
+      </p>
+      <p class="booking-detail">Status: {{ booking.status }}</p>
+      <p class="booking-detail">Airline: {{ booking.flight?.airline }}</p>
+      <p class="booking-detail">Flight ID: {{ booking.flight_id }}</p>
+      <p class="booking-detail">Booking ID: {{ booking.booking_id }}</p>
+      <p class="booking-detail">
+        Booking Date: {{ booking.booking_date | date : "yyyy-MM-dd" }}
+      </p>
+    </div>
+    <div class="booking-actions">
+      <button
+        *ngIf="booking.status === 'reserved'"
+        (click)="confirmBooking(booking.booking_id)"
+        class="btn btn-confirm"
+      >
+        Confirm
+      </button>
+      <button
+        (click)="deleteBooking(booking.booking_id)"
+        class="btn btn-delete"
+      >
+        Delete
+      </button>
+    </div>
   </div>
 </div>

@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
         ...this.registerForm.value,
         role: 'user',
       };
-
       forkJoin({
         usernameExists: this.userService.checkUserName(userData.username),
         emailExists: this.userService.checkEmail(userData.email),

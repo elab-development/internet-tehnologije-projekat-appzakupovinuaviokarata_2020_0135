@@ -20,10 +20,7 @@
       </button>
     </div>
 
-    <mat-table
-      [dataSource]="dataSource"
-      class="flights-table mat-elevation-z8"
-    >
+    <mat-table [dataSource]="dataSource" class="flights-table mat-elevation-z8">
       <ng-container
         [matColumnDef]="column"
         *ngFor="let column of displayedColumns"
@@ -71,8 +68,10 @@
     </mat-table>
 
     <div class="paginator-container">
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator
+        [pageSizeOptions]="[4, 8, 12]"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
-
   </div>
 </div>

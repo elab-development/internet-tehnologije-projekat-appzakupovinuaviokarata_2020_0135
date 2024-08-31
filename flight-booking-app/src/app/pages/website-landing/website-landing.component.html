@@ -19,9 +19,9 @@
   </button>
   <button
     mat-button
-    routerLink="/logout"
     style="color: #ecf0f1"
     [disabled]="disableButtons"
+    (click)="logout()"
   >
     Logout
   </button>

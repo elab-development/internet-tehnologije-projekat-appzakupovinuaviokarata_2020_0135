@@ -25,7 +25,6 @@ import { BookFlightComponent } from './pages/book-flight/book-flight.component';
 import { WebsiteLandingComponent } from './pages/website-landing/website-landing.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FlightsComponent } from './pages/admin/flights/flights.component';
-import { AlertDialogComponent } from './pages/alert/alert.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 import { BookingConfirmationComponent } from './booking-confirmation/booking-confirmation.component';
@@ -43,7 +42,7 @@ import { BookingsComponent } from './pages/admin/bookings/bookings.component';
 import { AirportsComponent } from './pages/admin/airports/airports.component';
 import { UpdateAirportDialogComponent } from './dialogs/update-airport-dialog/update-airport-dialog.component';
 import { AddAirportDialogComponent } from './dialogs/add-airport-dialog/add-airport-dialog.component';
-import {MatPaginatorModule} from "@angular/material/paginator";
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +55,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     WebsiteLandingComponent,
     SidebarComponent,
     FlightsComponent,
-    AlertDialogComponent,
     BookingConfirmationComponent,
     UpdateDialogComponent,
     AddFlightDialogComponent,
@@ -79,7 +77,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatProgressSpinner,
     MatSnackBarModule,
     MatNativeDateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [
     AuthGuard,

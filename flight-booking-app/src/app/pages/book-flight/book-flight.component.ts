@@ -40,9 +40,7 @@ export class BookFlightComponent implements OnInit {
     if (this.isPageRefreshed()) {
       this.cancelReservation();
     }
-    //else {
-    //  console.log('Stranica je učitana po prvi put');
-    //}
+
     this.isLoading = true;
     this.reserved = false;
     const flightId = this.route.snapshot.params['id'];
