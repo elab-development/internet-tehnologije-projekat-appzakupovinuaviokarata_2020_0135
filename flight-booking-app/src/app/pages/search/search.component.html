@@ -1,0 +1,108 @@
+<div class="page">
+  <section id="bodyContainer">
+    <div class="columns">
+      <aside class="column is-one-quarter enter-form">
+        <form name="searchFlight" class="box form-container">
+          <div class="sourceDestination mb-3">
+            <select
+              name="fromAirport"
+              class="searchFormField"
+              [(ngModel)]="fromAirport"
+            >
+              Select Airport
+              <option *ngFor="let airport of airports" [ngValue]="airport">
+                {{ airport.name }}, {{ airport.city }}, {{ airport.country }}
+              </option>
+            </select>
+          </div>
+
+          <div class="sourceDestination mb-3">
+            <select
+              name="toAirport"
+              class="searchFormField"
+              [(ngModel)]="toAirport"
+            >
+              <option *ngFor="let airport of airports" [ngValue]="airport">
+                {{ airport.name }}, {{ airport.city }}, {{ airport.country }}
+              </option>
+            </select>
+          </div>
+
+          <div class="field searchFormField">
+            <div class="control">
+              <input
+                class="input searchFormField"
+                type="date"
+                name="travelDate"
+                placeholder="Travel Date"
+                id="travelDate"
+                [(ngModel)]="travelDate"
+                [min]="minDate"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <button
+                class="button is-success is-rounded"
+                type="button "
+                (click)="searchFlights()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </aside>
+
+      <div class="column">
+        <div *ngIf="isLoading" class="has-text-centered loading">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <div *ngIf="!isLoading && flights.length === 0" class="container-text">
+          Nema letova za izabrane filtere.
+        </div>
+
+        <div id="FlightResult" *ngIf="!isLoading && flights.length > 0">
+          <div class="box">
+            <div class="row header">
+              <div class="cell">Airline</div>
+              <div class="cell">Departure</div>
+              <div class="cell">Arrival</div>
+              <div class="cell">Tickets Left</div>
+              <div class="cell">Fare</div>
+              <div class="cell"></div>
+            </div>
+          </div>
+
+          <ng-container *ngFor="let flight of flights">
+            <div class="box">
+              <div class="row">
+                <div class="cell">
+                  <!-- <figure class="image is-48x48"> -->
+                  <!-- <img [src]="flight.airlineLogo" alt="{{flight.airline}}"> -->
+                  <!-- </figure> -->
+                  <span>{{ flight.airline }}</span>
+                </div>
+                <div class="cell">{{ flight.departure_date }}</div>
+                <div class="cell">{{ flight.arrival_date }}</div>
+                <div class="cell">{{ flight.capacity }}</div>
+                <div class="cell">{{ flight.price | currency }}</div>
+                <div class="cell">
+                  <button
+                    class="button is-success is-rounded"
+                    (click)="bookFlight(flight.flight_id)"
+                  >
+                    Book Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

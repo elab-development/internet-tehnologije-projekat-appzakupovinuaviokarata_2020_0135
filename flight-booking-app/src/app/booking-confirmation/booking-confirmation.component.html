@@ -1,0 +1,9 @@
+<div *ngIf="showConfirmation" class="confirmation-container">
+    <h2 class="title">Booking is confirmed!</h2>
+    <p>Your booking has been successfully confirmed.</p>
+    <div class="button-container">
+      <button class="button is-primary" (click)="goToSearch()">Go to Search</button>
+      <button class="button is-link" (click)="goToMyBookings()">My Bookings</button>
+    </div>
+  </div>
+  

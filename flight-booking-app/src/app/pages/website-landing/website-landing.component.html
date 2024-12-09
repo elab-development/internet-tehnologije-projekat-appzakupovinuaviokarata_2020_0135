@@ -1,0 +1,29 @@
+<mat-toolbar *ngIf="showNavbar" class="full_navbar">
+  <span>Flight Booking App</span>
+  <span class="spacer"></span>
+  <button
+    mat-button
+    routerLink="/search"
+    style="color: #ecf0f1"
+    [disabled]="disableButtons"
+  >
+    Home
+  </button>
+  <button
+    mat-button
+    routerLink="/my-bookings"
+    style="color: #ecf0f1"
+    [disabled]="disableButtons"
+  >
+    My bookings
+  </button>
+  <button
+    mat-button
+    style="color: #ecf0f1"
+    [disabled]="disableButtons"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+</mat-toolbar>
+<router-outlet></router-outlet>
